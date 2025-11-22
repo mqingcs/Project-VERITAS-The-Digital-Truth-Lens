@@ -1,0 +1,183 @@
+/* Settings Page Styles - Digital Brutalism */
+
+.veritas-settings {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    color: #e0e0e0;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    padding: 3rem;
+}
+
+.settings-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #00ffff;
+}
+
+.settings-header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    background: linear-gradient(90deg, #00ffff, #ffaa00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+.settings-section {
+    background: #1a1a1a;
+    border: 2px solid #333;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 255, 255, 0.1);
+}
+
+.settings-section h2 {
+    font-size: 1.5rem;
+    color: #00ffff;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.help-text {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.help-text a {
+    color: #ffaa00;
+    text-decoration: none;
+    border-bottom: 1px dotted #ffaa00;
+}
+
+.help-text a:hover {
+    color: #00ffff;
+    border-bottom-color: #00ffff;
+}
+
+.api-key-input {
+    width: 100%;
+    padding: 1rem;
+    background: #0a0a0a;
+    border: 2px solid #333;
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+}
+
+.api-key-input:focus {
+    outline: none;
+    border-color: #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 0.75rem 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 2px solid;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #00ffff, #00cccc);
+    color: #000;
+    border-color: #00ffff;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, #00cccc, #00ffff);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #ffaa00;
+    border-color: #ffaa00;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: rgba(255, 170, 0, 0.1);
+    box-shadow: 0 0 15px rgba(255, 170, 0, 0.3);
+}
+
+.btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.model-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.model-card {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.model-card strong {
+    color: #00ffff;
+    font-size: 1rem;
+}
+
+.model-name {
+    font-size: 0.8rem;
+    color: #ffaa00;
+    font-family: monospace;
+}
+
+.model-card p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.usage-steps {
+    padding-left: 1.5rem;
+    color: #ccc;
+    line-height: 1.8;
+}
+
+.usage-steps li {
+    margin-bottom: 0.75rem;
+}
+
+kbd {
+    background: #0a0a0a;
+    border: 1px solid #00ffff;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    color: #00ffff;
+    font-weight: 600;
+}
