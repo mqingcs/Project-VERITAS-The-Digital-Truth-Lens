@@ -440,4 +440,49 @@ chrome.action.onClicked.addListener(async (tab) => {
     await chrome.sidePanel.open({ tabId: tab.id })
 })
 
+// Context Menu Registration
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.contextMenus.create({
+        id: "veritas-deep-dive",
+        title: "Veritas: Deep Dive",
+        contexts: ["selection"]
+    })
+})
+
+// Context Menu Click Handler
+chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+    if (info.menuItemId === "veritas-deep-dive" && tab?.id) {
+        // Send message to content script to trigger deep dive
+        // Use the existing long-lived connection for reliability
+        const port = connections.get(tab.id)
+
+        if (port) {
+            try {
+                port.postMessage({
+                    type: "TRIGGER_DEEP_DIVE",
+                    payload: {
+                        selectionText: info.selectionText
+                    }
+                })
+                logger.info(`Triggered deep dive for tab ${tab.id}`)
+            } catch (error) {
+                logger.error("Failed to send deep dive trigger via port", { error })
+            }
+        } else {
+            logger.warn(`No active connection found for tab ${tab.id}, attempting fallback`)
+            // Fallback: Try standard sendMessage (in case port is disconnected but script is alive)
+            try {
+                await chrome.tabs.sendMessage(tab.id, {
+                    type: "TRIGGER_DEEP_DIVE",
+                    payload: {
+                        selectionText: info.selectionText
+                    }
+                })
+            } catch (error) {
+                logger.error("Failed to trigger deep dive (fallback failed)", { error })
+            }
+        }
+    }
+})
+
 logger.info("🔮 Veritas background service worker initialized")

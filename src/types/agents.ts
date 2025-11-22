@@ -181,6 +181,7 @@ export type MessageType =
     | "EXECUTION_STARTED"
     | "EXECUTION_COMPLETE"
     | "ERROR"
+    | "TRIGGER_DEEP_DIVE"
 
 export interface AnalyzePageMessage {
     type: "ANALYZE_PAGE"
@@ -313,6 +314,13 @@ export interface ForceStopMessage {
     payload: {}
 }
 
+export interface TriggerDeepDiveMessage {
+    type: "TRIGGER_DEEP_DIVE"
+    payload: {
+        selectionText: string
+    }
+}
+
 export type Message =
     | AnalyzePageMessage
     | VeloxCompleteMessage
@@ -330,3 +338,4 @@ export type Message =
     | CommanderMessage
     | CommanderResponse
     | ForceStopMessage
+    | TriggerDeepDiveMessage

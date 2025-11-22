@@ -13,7 +13,6 @@ import { createRoot } from "react-dom/client"
 import NeonHalo from "~src/components/NeonHalo"
 import HolographicCard from "~src/components/HolographicCard"
 import StatusOverlay from "~src/components/StatusOverlay"
-import DeepDiveButton from "~src/components/DeepDiveButton"
 import DeepDiveResults from "~src/components/DeepDiveResults"
 import CommanderPanel from "~src/components/CommanderPanel"
 import ResultWindow from "~src/components/ResultWindow"
@@ -51,16 +50,6 @@ function CursorOverlay() {
         position: { x: number; y: number }
         locked?: boolean
     } | null>(null)
-
-    const [deepDive, setDeepDive] = useState<{
-        visible: boolean
-        position: { x: number; y: number }
-        selectedText: string
-    }>({
-        visible: false,
-        position: { x: 0, y: 0 },
-        selectedText: ""
-    })
 
     const [deepDiveResults, setDeepDiveResults] = useState<VerifiedGraphData | null>(null)
 
@@ -294,7 +283,6 @@ function CursorOverlay() {
                         timestamp: Date.now(),
                         summary: "Deep Dive Analysis Complete"
                     })
-                    setDeepDive(prev => ({ ...prev, visible: false }))
                 }
 
                 // Update each highlighted claim with verification results
@@ -515,41 +503,50 @@ function CursorOverlay() {
                     position,
                     type
                 }])
+            }),
+
+            // NEW: Context Menu Deep Dive Trigger
+            messageBus.on("TRIGGER_DEEP_DIVE", async (message) => {
+                if (message.type !== "TRIGGER_DEEP_DIVE") return
+                const { selectionText } = message.payload
+                console.log(`[CURSOR] 🚀 Context menu triggered Deep Dive: "${selectionText}"`)
+
+                // 1. Visual Feedback: Highlight the selected text
+                const selection = window.getSelection()
+                if (selection && selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0)
+                    const span = document.createElement("span")
+                    span.className = "veritas-deep-dive-processing"
+                    span.style.cssText = `
+                        background: linear-gradient(90deg, rgba(147, 51, 234, 0.2), rgba(79, 70, 229, 0.2));
+                        border-bottom: 2px solid #9333ea;
+                        animation: veritas-pulse 1.5s infinite;
+                        padding: 2px 0;
+                        border-radius: 2px;
+                    `
+                    try {
+                        range.surroundContents(span)
+                    } catch (err) {
+                        console.warn("[Deep Dive] Could not wrap selection for processing highlight:", err)
+                    }
+                }
+
+                // 2. Send message to background
+                try {
+                    await messageBus.send({
+                        type: "DEEP_DIVE",
+                        payload: {
+                            context: document.body.innerText.substring(0, 1000), // Limited context
+                            target: "user-selection",
+                            query: selectionText,
+                            outputLanguage: store.ui.outputLanguage || "English"
+                        }
+                    })
+                } catch (error) {
+                    console.error("Deep Dive failed:", error)
+                }
             })
         ]
-
-        // Text selection listener for Deep Dive
-        const handleTextSelection = (event: MouseEvent) => {
-            // Ignore clicks inside our own UI (Shadow DOM host)
-            const shadowHost = document.getElementById("veritas-shadow-host")
-            if (shadowHost && (event.target === shadowHost || shadowHost.contains(event.target as Node))) {
-                return
-            }
-
-            const selection = window.getSelection()
-            const selectedText = selection?.toString().trim()
-
-            if (selectedText && selectedText.length > 10) {
-                const range = selection!.getRangeAt(0)
-                const rect = range.getBoundingClientRect()
-
-                setDeepDive({
-                    visible: true,
-                    position: {
-                        x: rect.right + 10,
-                        y: rect.top + window.scrollY
-                    },
-                    selectedText
-                })
-            } else {
-                // Hide button if selection is too short
-                if (deepDive.visible) {
-                    setDeepDive({ visible: false, position: { x: 0, y: 0 }, selectedText: "" })
-                }
-            }
-        }
-
-        document.addEventListener("mouseup", handleTextSelection)
 
         // Commander hotkey: Ctrl+Shift+C
         const handleCommanderHotkey = (e: KeyboardEvent) => {
@@ -577,7 +574,6 @@ function CursorOverlay() {
         // Cleanup on unmount
         return () => {
             unsubscribers.forEach((unsub) => unsub())
-            document.removeEventListener("mouseup", handleTextSelection)
             document.removeEventListener("keydown", handleCommanderHotkey)
         }
     }, [])
@@ -638,12 +634,6 @@ function CursorOverlay() {
                 />
             )}
 
-            <DeepDiveButton
-                visible={deepDive.visible}
-                position={deepDive.position}
-                selectedText={deepDive.selectedText}
-                onClose={() => setDeepDive({ visible: false, position: { x: 0, y: 0 }, selectedText: "" })}
-            />
             <DeepDiveResults
                 results={deepDiveResults}
                 onClose={() => setDeepDiveResults(null)}
