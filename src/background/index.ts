@@ -15,6 +15,13 @@ import { askCommander } from "~src/agents/commander"
 // Store active connections
 const connections = new Map<number, chrome.runtime.Port>()
 
+// Store active executors by tab ID
+const activeExecutors = new Map<number, AutonomousExecutor>()
+
+// Store active analysis cancellation tokens by tab ID
+// true = cancelled
+const activeAnalyses = new Map<number, boolean>()
+
 // Listen for content script connections
 chrome.runtime.onConnect.addListener((port) => {
     if (port.name !== "veritas-content") {
@@ -67,119 +74,147 @@ async function handleMessage(message: Message, port: chrome.runtime.Port): Promi
 
             logger.info(`Veritas: Starting analysis for ${url}`)
 
-                // Execute the analysis pipeline with proper error handling
-                // We wrap this in an immediately invoked async function to avoid blocking
-                ; (async () => {
-                    try {
-                        // === VELOX AGENT ===
-                        console.log("[BACKGROUND] Starting Velox agent...")
-                        console.log("[BACKGROUND] PageContent nodes:", pageContent.nodes?.length || 0)
-                        console.log("[BACKGROUND] PageContent fullText length:", pageContent.fullText?.length || 0)
+            // Reset cancellation status for this tab
+            if (port.sender?.tab?.id) {
+                activeAnalyses.set(port.sender.tab.id, false)
+            }
 
-                        port.postMessage({
-                            type: "UPDATE_PROGRESS",
-                            payload: { agent: "velox", status: "Velox: Scanning for noise and fallacies..." }
-                        })
+            // Execute the analysis pipeline with proper error handling
+            // We wrap this in an immediately invoked async function to avoid blocking
+            ; (async () => {
+                try {
+                    // === VELOX AGENT ===
+                    console.log("[BACKGROUND] Starting Velox agent...")
+                    console.log("[BACKGROUND] PageContent nodes:", pageContent.nodes?.length || 0)
+                    console.log("[BACKGROUND] PageContent fullText length:", pageContent.fullText?.length || 0)
 
-                        const veloxData = await analyzeWithVelox(
-                            pageContent,
-                            pageContent.outputLanguage || "English"
-                        )
-                        console.log("[BACKGROUND] Velox complete, sending to content script")
+                    port.postMessage({
+                        type: "UPDATE_PROGRESS",
+                        payload: { agent: "velox", status: "Velox: Scanning for noise and fallacies..." }
+                    })
 
-                        // Store in memory for Commander access
-                        memoryManager.add(
-                            "result",
-                            "analyze_fallacies",
-                            veloxData,
-                            `${veloxData.fallacyNodes?.length || 0} fallacies`,
-                            undefined,
-                            30  // 30 minute TTL for full-page analysis (expensive operation)
-                        )
+                    const veloxData = await analyzeWithVelox(
+                        pageContent,
+                        pageContent.outputLanguage || "English"
+                    )
+                    console.log("[BACKGROUND] Velox complete, sending to content script")
 
-                        port.postMessage({
-                            type: "VELOX_COMPLETE",
-                            payload: veloxData
-                        })
+                    // Store in memory for Commander access
+                    memoryManager.add(
+                        "result",
+                        "analyze_fallacies",
+                        veloxData,
+                        `${veloxData.fallacyNodes?.length || 0} fallacies`,
+                        undefined,
+                        30  // 30 minute TTL for full-page analysis (expensive operation)
+                    )
 
-                        // Small delay for UI update
-                        await new Promise(resolve => setTimeout(resolve, 500))
+                    port.postMessage({
+                        type: "VELOX_COMPLETE",
+                        payload: veloxData
+                    })
 
-                        // === RATIO AGENT ===
-                        console.log("[BACKGROUND] Starting Ratio agent...")
-                        port.postMessage({
-                            type: "UPDATE_PROGRESS",
-                            payload: { agent: "ratio", status: "Ratio: Extracting facts and claims..." }
-                        })
+                    // Small delay for UI update
+                    await new Promise(resolve => setTimeout(resolve, 500))
 
-                        const ratioData = await analyzeWithRatio(
-                            pageContent,
-                            veloxData,
-                            pageContent.outputLanguage || "English"
-                        )
-                        console.log("[BACKGROUND] Ratio complete, sending to content script")
+                    // Small delay for UI update
+                    await new Promise(resolve => setTimeout(resolve, 500))
 
-                        // Store in memory for Commander access
-                        memoryManager.add(
-                            "result",
-                            "extract_claims",
-                            ratioData,
-                            `${ratioData.claims?.length || 0} claims`,
-                            undefined,
-                            30  // 30 minute TTL
-                        )
-
-                        port.postMessage({
-                            type: "RATIO_COMPLETE",
-                            payload: ratioData
-                        })
-
-                        // Small delay for UI update
-                        await new Promise(resolve => setTimeout(resolve, 500))
-
-                        // === VERITAS AGENT ===
-                        console.log("[BACKGROUND] Starting Veritas agent...")
-                        port.postMessage({
-                            type: "UPDATE_PROGRESS",
-                            payload: { agent: "veritas", status: "Veritas: Verifying claims with Google Search..." }
-                        })
-
-                        const veritasData = await analyzeWithVeritas(
-                            ratioData,
-                            pageContent.outputLanguage || "English"
-                        )
-                        console.log("[BACKGROUND] Veritas complete, sending to content script")
-
-                        // Store in memory for Commander access
-                        memoryManager.add(
-                            "result",
-                            "verify_claims",  // New source type for full verification
-                            veritasData,
-                            `${veritasData.verifications?.length || 0} verified`,
-                            undefined,
-                            30  // 30 minute TTL
-                        )
-
-                        port.postMessage({
-                            type: "VERITAS_COMPLETE",
-                            payload: veritasData
-                        })
-
-                        logger.info("✓ Veritas: Analysis pipeline complete")
-
-                    } catch (error) {
-                        console.error("[BACKGROUND] Analysis pipeline failed:", error)
-                        logger.error("Analysis pipeline failed", { error })
-
-                        // Send error to content script
-                        port.postMessage({
-                            type: "ERROR",
-                            payload: {
-                                error: error instanceof Error ? error.message : "Analysis failed"
-                            }
-                        })
+                    // CHECK CANCELLATION
+                    if (port.sender?.tab?.id && activeAnalyses.get(port.sender.tab.id)) {
+                        logger.warn("[BACKGROUND] Analysis cancelled by user after Velox")
+                        return
                     }
-                })()
+
+                    // === RATIO AGENT ===
+                    console.log("[BACKGROUND] Starting Ratio agent...")
+                    port.postMessage({
+                        type: "UPDATE_PROGRESS",
+                        payload: { agent: "ratio", status: "Ratio: Extracting facts and claims..." }
+                    })
+
+                    const ratioData = await analyzeWithRatio(
+                        pageContent,
+                        veloxData,
+                        pageContent.outputLanguage || "English"
+                    )
+                    console.log("[BACKGROUND] Ratio complete, sending to content script")
+
+                    // Store in memory for Commander access
+                    memoryManager.add(
+                        "result",
+                        "extract_claims",
+                        ratioData,
+                        `${ratioData.claims?.length || 0} claims`,
+                        undefined,
+                        30  // 30 minute TTL
+                    )
+
+                    port.postMessage({
+                        type: "RATIO_COMPLETE",
+                        payload: ratioData
+                    })
+
+                    // Small delay for UI update
+                    await new Promise(resolve => setTimeout(resolve, 500))
+
+                    // Small delay for UI update
+                    await new Promise(resolve => setTimeout(resolve, 500))
+
+                    // CHECK CANCELLATION
+                    if (port.sender?.tab?.id && activeAnalyses.get(port.sender.tab.id)) {
+                        logger.warn("[BACKGROUND] Analysis cancelled by user after Ratio")
+                        return
+                    }
+
+                    // === VERITAS AGENT ===
+                    console.log("[BACKGROUND] Starting Veritas agent...")
+                    port.postMessage({
+                        type: "UPDATE_PROGRESS",
+                        payload: { agent: "veritas", status: "Veritas: Verifying claims with Google Search..." }
+                    })
+
+                    const veritasData = await analyzeWithVeritas(
+                        ratioData,
+                        pageContent.outputLanguage || "English"
+                    )
+                    console.log("[BACKGROUND] Veritas complete, sending to content script")
+
+                    // Store in memory for Commander access
+                    memoryManager.add(
+                        "result",
+                        "verify_claims",  // New source type for full verification
+                        veritasData,
+                        `${veritasData.verifications?.length || 0} verified`,
+                        undefined,
+                        30  // 30 minute TTL
+                    )
+
+                    port.postMessage({
+                        type: "VERITAS_COMPLETE",
+                        payload: veritasData
+                    })
+
+                    logger.info("✓ Veritas: Analysis pipeline complete")
+
+                    // Cleanup
+                    if (port.sender?.tab?.id) {
+                        activeAnalyses.delete(port.sender.tab.id)
+                    }
+
+                } catch (error) {
+                    console.error("[BACKGROUND] Analysis pipeline failed:", error)
+                    logger.error("Analysis pipeline failed", { error })
+
+                    // Send error to content script
+                    port.postMessage({
+                        type: "ERROR",
+                        payload: {
+                            error: error instanceof Error ? error.message : "Analysis failed"
+                        }
+                    })
+                }
+            })()
 
             break
         }
@@ -201,6 +236,11 @@ async function handleMessage(message: Message, port: chrome.runtime.Port): Promi
                 }
             } catch (error) {
                 // Silently ignore
+            }
+
+            // Mark all active analyses as cancelled
+            for (const key of activeAnalyses.keys()) {
+                activeAnalyses.set(key, true)
             }
 
             // Clear all state
@@ -395,6 +435,11 @@ async function handleMessage(message: Message, port: chrome.runtime.Port): Promi
                         // Create autonomous executor instance
                         const executor = new AutonomousExecutor()
 
+                        // Store executor reference
+                        if (port.sender?.tab?.id) {
+                            activeExecutors.set(port.sender.tab.id, executor)
+                        }
+
                         // Start autonomous execution loop
                         await executor.startExecution(
                             text,
@@ -402,6 +447,11 @@ async function handleMessage(message: Message, port: chrome.runtime.Port): Promi
                             port,
                             outputLanguage
                         )
+
+                        // Cleanup after execution
+                        if (port.sender?.tab?.id) {
+                            activeExecutors.delete(port.sender.tab.id)
+                        }
 
                         logger.info("[Background] Autonomous execution complete")
 
@@ -427,10 +477,69 @@ async function handleMessage(message: Message, port: chrome.runtime.Port): Promi
             break
         }
 
+        case "STOP_EXECUTION": {
+            const tabId = port.sender?.tab?.id
+            if (tabId && activeExecutors.has(tabId)) {
+                logger.info(`[Background] Stopping execution for tab ${tabId}`)
+                const executor = activeExecutors.get(tabId)
+                executor?.requestStop()
+            } else {
+                logger.warn(`[Background] No active executor found for tab ${tabId}`)
+            }
+            break
+        }
+
         default:
             logger.warn(`Veritas: Unknown message type ${(message as any).type}`)
     }
 }
+
+// Listen for one-off messages (e.g. from Side Panel or Popup)
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    logger.debug("Veritas: Received runtime message", { type: message.type })
+
+    if (message.type === "FORCE_STOP") {
+        // Handle FORCE_STOP directly here since it doesn't require a port
+        (async () => {
+            try {
+                logger.warn("[Background] FORCE_STOP signal received via runtime message")
+
+                // 1. Send stop signal to all active tabs
+                const tabs = await chrome.tabs.query({ active: true, currentWindow: true })
+                if (tabs[0]?.id) {
+                    await chrome.tabs.sendMessage(tabs[0].id, {
+                        type: "FORCE_STOP",
+                        payload: {}
+                    }).catch(() => {
+                        // Ignore if content script is not available
+                    })
+                }
+
+                // 2. Cancel all active analyses
+                for (const key of activeAnalyses.keys()) {
+                    activeAnalyses.set(key, true)
+                    logger.info(`[Background] Cancelled analysis for tab ${key}`)
+                }
+
+                // 3. Stop all active executors
+                for (const [tabId, executor] of activeExecutors.entries()) {
+                    executor.requestStop()
+                    logger.info(`[Background] Stopped executor for tab ${tabId}`)
+                }
+
+                // 4. Clear state
+                await chrome.storage.local.remove("veritasState")
+
+                logger.info("[Background] All operations stopped via runtime message")
+                sendResponse({ success: true })
+            } catch (error) {
+                logger.error("Error handling FORCE_STOP", { error })
+                sendResponse({ success: false, error: String(error) })
+            }
+        })()
+        return true // Keep channel open for async response
+    }
+})
 
 // Extension icon click - open side panel
 chrome.action.onClicked.addListener(async (tab) => {

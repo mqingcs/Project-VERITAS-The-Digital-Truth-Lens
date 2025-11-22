@@ -12,7 +12,6 @@ import { ProgressBar } from "~src/components/ProgressBar"
 import { StopButton } from "~src/components/StopButton"
 import { ExecutionHistory } from "~src/components/ExecutionHistory"
 import { addExecutionToHistory } from "~src/components/ExecutionHistory"
-import { autonomousExecutor } from "~src/lib/autonomous-executor"
 import { useDraggable } from "~src/hooks/useDraggable"
 
 interface CommanderPanelProps {
@@ -348,7 +347,10 @@ export default function CommanderPanel({ visible, position, context, onClose, on
                             isExecuting={isExecuting}
                             onStop={() => {
                                 console.log("[Commander Panel] Requesting stop...")
-                                autonomousExecutor.requestStop()
+                                messageBus.send({
+                                    type: "STOP_EXECUTION",
+                                    payload: {}
+                                })
                             }}
                         />
                     </div>

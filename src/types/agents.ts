@@ -321,6 +321,11 @@ export interface TriggerDeepDiveMessage {
     }
 }
 
+export interface StopExecutionMessage {
+    type: "STOP_EXECUTION"
+    payload: {}
+}
+
 export type Message =
     | AnalyzePageMessage
     | VeloxCompleteMessage
@@ -339,3 +344,4 @@ export type Message =
     | CommanderResponse
     | ForceStopMessage
     | TriggerDeepDiveMessage
+    | StopExecutionMessage
