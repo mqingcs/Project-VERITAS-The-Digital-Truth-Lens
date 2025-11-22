@@ -13,6 +13,7 @@ import { StopButton } from "~src/components/StopButton"
 import { ExecutionHistory } from "~src/components/ExecutionHistory"
 import { addExecutionToHistory } from "~src/components/ExecutionHistory"
 import { autonomousExecutor } from "~src/lib/autonomous-executor"
+import { useDraggable } from "~src/hooks/useDraggable"
 
 interface CommanderPanelProps {
     visible: boolean
@@ -22,6 +23,7 @@ interface CommanderPanelProps {
         data?: any
     }
     onClose: () => void
+    onPositionChange?: (pos: { x: number; y: number }) => void
 }
 
 interface Message {
@@ -34,7 +36,10 @@ interface Message {
     }>
 }
 
-export default function CommanderPanel({ visible, position, context, onClose }: CommanderPanelProps) {
+export default function CommanderPanel({ visible, position, context, onClose, onPositionChange }: CommanderPanelProps) {
+    const { handleMouseDown, isDragging } = useDraggable(position, (newPos) => {
+        onPositionChange?.(newPos)
+    })
     const [messages, setMessages] = useState<Message[]>([])
     const [input, setInput] = useState("")
     const [isProcessing, setIsProcessing] = useState(false)
@@ -221,12 +226,13 @@ export default function CommanderPanel({ visible, position, context, onClose }: 
                     border: "1px solid rgba(0,255,255,0.3)",
                     borderRadius: "8px",
                     padding: "12px 16px",
-                    cursor: "pointer",
+                    cursor: isDragging ? "grabbing" : "grab",
                     pointerEvents: "auto",
                     zIndex: 10000,
                     boxShadow: "0 8px 32px rgba(0,255,255,0.2)"
                 }}
                 onClick={() => setIsMinimized(false)}
+                onMouseDown={handleMouseDown}
             >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span style={{ color: "cyan", fontWeight: "bold", fontSize: "14px" }}>💬 CURSOR</span>
@@ -274,6 +280,7 @@ export default function CommanderPanel({ visible, position, context, onClose }: 
         >
             {/* Header */}
             <div
+                onMouseDown={handleMouseDown}
                 style={{
                     background: "linear-gradient(90deg, rgba(0,255,255,0.2), rgba(255,0,255,0.2))",
                     borderBottom: "1px solid rgba(0,255,255,0.3)",
@@ -281,7 +288,7 @@ export default function CommanderPanel({ visible, position, context, onClose }: 
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    cursor: "move"
+                    cursor: isDragging ? "grabbing" : "grab"
                 }}
             >
                 <div>

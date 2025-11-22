@@ -183,6 +183,12 @@ function CursorOverlay() {
                     console.log(`[CURSOR] 🖱️ Adding click handler for fallacy card`)
                     makeInteractive(
                         xpath,
+                        () => {
+                            // No hover action
+                        },
+                        () => {
+                            // No leave action
+                        },
                         (targetXpath) => {
                             console.log(`[CURSOR] 👆 Fallacy clicked! XPath: ${targetXpath}`)
                             const elementResult = document.evaluate(targetXpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null)
@@ -210,9 +216,6 @@ function CursorOverlay() {
                             } else {
                                 console.warn(`[CURSOR] ⚠️ Could not find element for click handler`)
                             }
-                        },
-                        () => {
-                            // No auto-close on mouseout since we switched to click/persistent
                         }
                     )
                 })
@@ -588,6 +591,7 @@ function CursorOverlay() {
                     xpath={hoverCard.xpath}
                     position={hoverCard.position}
                     onClose={() => setHoverCard(null)}
+                    onPositionChange={(pos) => setHoverCard(prev => prev ? { ...prev, position: pos } : null)}
                 />
             )}
 
@@ -608,6 +612,7 @@ function CursorOverlay() {
                             }
                         })
                     }}
+                    onPositionChange={(pos) => setEvidenceCard(prev => prev ? { ...prev, position: pos } : null)}
                 />
             )}
 
@@ -618,6 +623,7 @@ function CursorOverlay() {
                     position={fallacyCard.position}
                     data={fallacyCard.data}
                     onClose={() => setFallacyCard(null)}
+                    onPositionChange={(pos) => setFallacyCard(prev => prev ? { ...prev, position: pos } : null)}
                 />
             )}
 
@@ -628,6 +634,7 @@ function CursorOverlay() {
                     position={emotionalCard.position}
                     data={emotionalCard.data}
                     onClose={() => setEmotionalCard(null)}
+                    onPositionChange={(pos) => setEmotionalCard(prev => prev ? { ...prev, position: pos } : null)}
                 />
             )}
 
@@ -656,6 +663,7 @@ function CursorOverlay() {
                 position={commanderPanel.position}
                 context={commanderPanel.context}
                 onClose={() => setCommanderPanel({ visible: false, position: { x: 0, y: 0 } })}
+                onPositionChange={(pos) => setCommanderPanel(prev => ({ ...prev, position: pos }))}
             />
 
             {/* Result Windows from Commander */}

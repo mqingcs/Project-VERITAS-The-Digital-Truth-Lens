@@ -5,6 +5,7 @@
 
 import { useState, useEffect } from "react"
 import type { VerifiedGraphData } from "~src/types/agents"
+import { useDraggable } from "~src/hooks/useDraggable"
 
 interface DeepDiveResultsProps {
     results: VerifiedGraphData | null
@@ -14,6 +15,9 @@ interface DeepDiveResultsProps {
 
 export default function DeepDiveResults({ results, onClose, onChat }: DeepDiveResultsProps) {
     const [visible, setVisible] = useState(false)
+    const [position, setPosition] = useState({ x: window.innerWidth - 450, y: window.innerHeight - 650 })
+
+    const { handleMouseDown, isDragging } = useDraggable(position, setPosition)
 
     useEffect(() => {
         if (results) {
@@ -31,8 +35,8 @@ export default function DeepDiveResults({ results, onClose, onChat }: DeepDiveRe
             className="veritas-deep-dive-results"
             style={{
                 position: "fixed",
-                bottom: "20px",
-                right: "20px",
+                left: `${position.x}px`,
+                top: `${position.y}px`,
                 width: "420px",
                 maxHeight: "600px",
                 background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)",
@@ -45,13 +49,16 @@ export default function DeepDiveResults({ results, onClose, onChat }: DeepDiveRe
             }}
         >
             {/* Header */}
-            <div style={{
-                padding: "20px",
-                borderBottom: "1px solid rgba(102, 126, 234, 0.2)",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center"
-            }}>
+            <div
+                onMouseDown={handleMouseDown}
+                style={{
+                    cursor: isDragging ? "grabbing" : "grab",
+                    padding: "20px",
+                    borderBottom: "1px solid rgba(102, 126, 234, 0.2)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center"
+                }}>
                 <div>
                     <div style={{
                         fontSize: "18px",

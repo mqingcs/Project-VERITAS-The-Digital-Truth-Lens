@@ -5,6 +5,7 @@
 
 import React from "react"
 import type { FallacyType } from "~src/types/agents"
+import { useDraggable } from "~src/hooks/useDraggable"
 
 export interface FallacyCardProps {
     visible: boolean
@@ -19,9 +20,14 @@ export interface FallacyCardProps {
         }[]
     }
     onClose: () => void
+    onPositionChange?: (pos: { x: number; y: number }) => void
 }
 
-export function FallacyCard({ visible, position, data, onClose }: FallacyCardProps) {
+export function FallacyCard({ visible, position, data, onClose, onPositionChange }: FallacyCardProps) {
+    const { handleMouseDown, isDragging } = useDraggable(position, (newPos) => {
+        onPositionChange?.(newPos)
+    })
+
     if (!visible) return null
 
     // Adjust position to avoid screen edges
@@ -72,7 +78,9 @@ export function FallacyCard({ visible, position, data, onClose }: FallacyCardPro
             onClick={(e) => e.stopPropagation()}>
             {/* Header */}
             <div
+                onMouseDown={handleMouseDown}
                 style={{
+                    cursor: isDragging ? "grabbing" : "grab",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",

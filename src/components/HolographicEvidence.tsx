@@ -5,6 +5,7 @@
 
 import React from "react"
 import type { Evidence } from "~src/types/agents"
+import { useDraggable } from "~src/hooks/useDraggable"
 
 export interface HolographicEvidenceProps {
     visible: boolean
@@ -18,6 +19,7 @@ export interface HolographicEvidenceProps {
     }
     onClose: () => void
     onChat: () => void
+    onPositionChange?: (pos: { x: number; y: number }) => void
 }
 
 export function HolographicEvidence({
@@ -25,8 +27,13 @@ export function HolographicEvidence({
     position,
     data,
     onClose,
-    onChat
+    onChat,
+    onPositionChange
 }: HolographicEvidenceProps) {
+    const { handleMouseDown, isDragging } = useDraggable(position, (newPos) => {
+        onPositionChange?.(newPos)
+    })
+
     if (!visible) return null
 
     // Adjust position to avoid screen edges
@@ -68,7 +75,9 @@ export function HolographicEvidence({
             onClick={(e) => e.stopPropagation()}>
             {/* Header */}
             <div
+                onMouseDown={handleMouseDown}
                 style={{
+                    cursor: isDragging ? "grabbing" : "grab",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",

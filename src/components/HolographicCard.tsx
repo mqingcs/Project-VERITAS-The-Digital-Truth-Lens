@@ -10,14 +10,19 @@ import { getElementState } from "~src/lib/dom-painter"
 import CardTabs from "./CardTabs"
 import GraphView from "./GraphView"
 import CommanderChat from "./CommanderChat"
+import { useDraggable } from "~src/hooks/useDraggable"
 
 interface HolographicCardProps {
   xpath: string
   position: { x: number; y: number }
   onClose?: () => void
+  onPositionChange?: (pos: { x: number; y: number }) => void
 }
 
-export default function HolographicCard({ xpath, position, onClose }: HolographicCardProps) {
+export default function HolographicCard({ xpath, position, onClose, onPositionChange }: HolographicCardProps) {
+  const { handleMouseDown, isDragging } = useDraggable(position, (newPos) => {
+    onPositionChange?.(newPos)
+  })
   const store = useVeritasStore()
   const { currentAnalysis } = store
   const [elementState, setElementState] = useState<ReturnType<typeof getElementState>>(null)
@@ -131,7 +136,11 @@ export default function HolographicCard({ xpath, position, onClose }: Holographi
         `}
       </style>
 
-      <div className="veritas-card-header veritas-glitch">
+      <div
+        className="veritas-card-header veritas-glitch"
+        onMouseDown={handleMouseDown}
+        style={{ cursor: isDragging ? "grabbing" : "grab" }}
+      >
         <span>TRUTH OVERLAY // {activeTab.toUpperCase()}</span>
         {onClose && <button className="veritas-close-btn" onClick={onClose}>×</button>}
       </div>

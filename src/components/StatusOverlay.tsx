@@ -1,9 +1,14 @@
-import React from "react"
+import React, { useState } from "react"
 import { useVeritasStore } from "~src/store"
+import { useDraggable } from "~src/hooks/useDraggable"
 
 export default function StatusOverlay() {
     const store = useVeritasStore()
     const analysis = store.currentAnalysis
+    const [pos, setPos] = useState<{ x: number, y: number } | null>(null)
+
+    const initialPos = { x: window.innerWidth - 350, y: window.innerHeight - 100 }
+    const { handleMouseDown, isDragging } = useDraggable(pos || initialPos, setPos)
 
     // Show if analyzing OR if we have results (to allow toggling language for next run)
     // But per requirements, maybe only show when analyzing? 
@@ -20,25 +25,30 @@ export default function StatusOverlay() {
     }
 
     return (
-        <div style={{
-            position: "fixed",
-            bottom: "30px",
-            right: "30px",
-            zIndex: 999999,
-            background: "rgba(10, 10, 10, 0.9)",
-            border: "1px solid rgba(0, 255, 242, 0.3)",
-            padding: "15px 25px",
-            borderRadius: "4px",
-            fontFamily: "'JetBrains Mono', monospace",
-            color: "#e0e0e0",
-            boxShadow: "0 0 20px rgba(0, 255, 242, 0.1)",
-            backdropFilter: "blur(10px)",
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            maxWidth: "400px",
-            animation: "slideIn 0.3s ease-out"
-        }}>
+        <div
+            onMouseDown={handleMouseDown}
+            style={{
+                position: "fixed",
+                left: pos ? `${pos.x}px` : undefined,
+                top: pos ? `${pos.y}px` : undefined,
+                bottom: pos ? undefined : "30px",
+                right: pos ? undefined : "30px",
+                cursor: isDragging ? "grabbing" : "grab",
+                zIndex: 999999,
+                background: "rgba(10, 10, 10, 0.9)",
+                border: "1px solid rgba(0, 255, 242, 0.3)",
+                padding: "15px 25px",
+                borderRadius: "4px",
+                fontFamily: "'JetBrains Mono', monospace",
+                color: "#e0e0e0",
+                boxShadow: "0 0 20px rgba(0, 255, 242, 0.1)",
+                backdropFilter: "blur(10px)",
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+                maxWidth: "400px",
+                animation: "slideIn 0.3s ease-out"
+            }}>
             <div className="scan-line" style={{
                 position: "absolute",
                 top: 0,

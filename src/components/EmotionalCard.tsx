@@ -4,6 +4,7 @@
  */
 
 import React from "react"
+import { useDraggable } from "~src/hooks/useDraggable"
 
 export interface EmotionalCardProps {
     visible: boolean
@@ -16,9 +17,14 @@ export interface EmotionalCardProps {
         manipulation_level: "low" | "medium" | "high"
     }
     onClose: () => void
+    onPositionChange?: (pos: { x: number; y: number }) => void
 }
 
-export function EmotionalCard({ visible, position, data, onClose }: EmotionalCardProps) {
+export function EmotionalCard({ visible, position, data, onClose, onPositionChange }: EmotionalCardProps) {
+    const { handleMouseDown, isDragging } = useDraggable(position, (newPos) => {
+        onPositionChange?.(newPos)
+    })
+
     if (!visible) return null
 
     // Adjust position to avoid screen edges
@@ -70,7 +76,9 @@ export function EmotionalCard({ visible, position, data, onClose }: EmotionalCar
             onClick={(e) => e.stopPropagation()}>
             {/* Header */}
             <div
+                onMouseDown={handleMouseDown}
                 style={{
+                    cursor: isDragging ? "grabbing" : "grab",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",

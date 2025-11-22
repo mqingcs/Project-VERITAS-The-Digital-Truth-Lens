@@ -185,9 +185,30 @@ export class AutonomousExecutor {
                     const result = await this.executeTool(toolCall)
 
                     // Add tool result to history for Commander's next iteration
+                    let resultText = `Tool "${toolCall.tool}" executed successfully. Result stored in memory with index: "${result.memoryIndex}"`
+
+                    // CRITICAL FIX: Include the actual content in the history so the agent can see it!
+                    // Without this, the agent loops because it thinks it hasn't received the data.
+                    if (result.content) {
+                        const contentStr = typeof result.content === 'string'
+                            ? result.content
+                            : JSON.stringify(result.content, null, 2)
+
+                        // Allow larger context for read_memory and analysis tools
+                        // But still truncate to prevent token overflow
+                        const isRetrieval = ["read_memory", "extract_claims", "analyze_fallacies", "get_page_text"].includes(toolCall.tool)
+                        const maxLen = isRetrieval ? 4000 : 500
+
+                        const truncated = contentStr.length > maxLen
+                            ? contentStr.substring(0, maxLen) + "\n... [truncated]"
+                            : contentStr
+
+                        resultText += `\n\nTool Output:\n${truncated}`
+                    }
+
                     this.state.history.push({
                         role: "system",
-                        text: `Tool "${toolCall.tool}" executed successfully. Result stored in memory with index: "${result.memoryIndex}"`
+                        text: resultText
                     })
 
                     logger.info(`[AutonomousExecutor] Tool ${toolCall.tool} completed: ${result.memoryIndex}`)
@@ -235,17 +256,65 @@ export class AutonomousExecutor {
         const args = typeof toolCall.args === 'string'
             ? JSON.parse(toolCall.args)
             : toolCall.args
-
         let toolResult: any
 
         switch (toolCall.tool) {
             case "read_page": {
-                toolResult = {
-                    status: "success",
-                    content: this.state.context.pageContent || {},
-                    memoryIndex: "Page Read"
+                // Request fresh page data
+                this.state.port.postMessage({
+                    type: "READ_PAGE_REQUEST",
+                    payload: {}
+                })
+
+                // CRITICAL FIX: Wait for the data to actually arrive!
+                // Otherwise we return stale/empty context and cause hallucinations.
+                try {
+                    const freshContent = await this.waitForPageContent()
+
+                    toolResult = {
+                        status: "success",
+                        content: freshContent,
+                        memoryIndex: "Page Content"
+                    }
+
+                    // Store fresh content to memory
+                    memoryManager.add("result", "read_page", toolResult.content, "Page Content")
+                } catch (error) {
+                    console.error("[Executor] Failed to get page content:", error)
+                    toolResult = {
+                        status: "error",
+                        content: null,
+                        reason: "Timeout waiting for page content"
+                    }
                 }
-                memoryManager.add("result", "read_page", toolResult.content, "Page Read")
+                break
+            }
+
+            case "get_page_text": {
+                // Request fresh page data
+                this.state.port.postMessage({
+                    type: "READ_PAGE_REQUEST",
+                    payload: {}
+                })
+
+                try {
+                    const freshContent = await this.waitForPageContent()
+                    const text = freshContent.fullText || ""
+
+                    toolResult = {
+                        status: "success",
+                        content: { text },
+                        memoryIndex: "Page Text"
+                    }
+
+                    memoryManager.add("result", "get_page_text", toolResult.content, "Page Text")
+                } catch (error) {
+                    toolResult = {
+                        status: "error",
+                        content: null,
+                        reason: "Timeout waiting for page text"
+                    }
+                }
                 break
             }
 
@@ -489,7 +558,35 @@ export class AutonomousExecutor {
             }
 
             case "show_result_window": {
-                const { title, content, position, type } = args
+                let { title, content, source, memoryId, position, type } = args
+
+                // CRITICAL FIX: Fetch content from memory if source/memoryId is provided
+                // This prevents hallucination by bypassing LLM text generation
+                if (source || memoryId) {
+                    let memoryItem
+                    if (source) {
+                        const mem = memoryManager.getBySource(source)
+                        memoryItem = mem?.fullContent || mem?.content
+                    } else if (memoryId) {
+                        memoryItem = memoryManager.getMemoryContent(memoryId)
+                    }
+
+                    if (memoryItem) {
+                        // Handle different content structures
+                        if (typeof memoryItem === 'string') {
+                            content = memoryItem
+                        } else if (memoryItem.text) {
+                            content = memoryItem.text
+                        } else if (memoryItem.fullText) {
+                            content = memoryItem.fullText
+                        } else {
+                            content = JSON.stringify(memoryItem, null, 2)
+                        }
+                        console.log(`[AutonomousExecutor] Fetched content from memory for window: ${content?.substring(0, 50)}...`)
+                    } else {
+                        content = content || "(Content not found in memory)"
+                    }
+                }
 
                 // Send window command to content script
                 this.state.port.postMessage({
@@ -512,6 +609,27 @@ export class AutonomousExecutor {
     }
 
     /**
+     * Helper to wait for page content to be updated
+     */
+    private async waitForPageContent(timeoutMs: number = 5000): Promise<any> {
+        const startTime = Date.now()
+
+        return new Promise((resolve, reject) => {
+            const checkInterval = setInterval(() => {
+                if (this.state.context.pageContent && this.state.context.pageContent.fullText) {
+                    clearInterval(checkInterval)
+                    resolve(this.state.context.pageContent)
+                }
+
+                if (Date.now() - startTime > timeoutMs) {
+                    clearInterval(checkInterval)
+                    reject(new Error("Timeout waiting for page content"))
+                }
+            }, 100)
+        })
+    }
+
+    /**
      * Send progress update to UI
      */
     private sendProgress(status: string, currentStep: number, totalSteps: number): void {
@@ -521,27 +639,22 @@ export class AutonomousExecutor {
             type: "UPDATE_PROGRESS",
             payload: {
                 agent: "commander",
-                status: status,
-                currentStep: currentStep,
-                totalSteps: totalSteps,
-                progress: currentStep / totalSteps
+                status,
+                progress: Math.round((currentStep / totalSteps) * 100)
             }
         })
     }
 
     /**
-     * Send error message to UI
+     * Send error notification
      */
-    private sendError(message: string): void {
+    private sendError(error: string): void {
         if (!this.state) return
 
         this.state.port.postMessage({
-            type: "COMMANDER_RESPONSE",
+            type: "ERROR",
             payload: {
-                text: this.state.outputLanguage === "Chinese"
-                    ? `❌ 执行失败：${message}`
-                    : `❌ Execution failed: ${message}`,
-                toolCalls: []
+                error
             }
         })
     }

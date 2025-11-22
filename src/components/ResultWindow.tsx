@@ -2,7 +2,8 @@
  * ResultWindow - Floating window for displaying Commander results
  */
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useDraggable } from "~src/hooks/useDraggable"
 
 interface ResultWindowProps {
     title: string
@@ -20,6 +21,22 @@ export default function ResultWindow({
     onClose
 }: ResultWindowProps) {
     const [isMinimized, setIsMinimized] = useState(false)
+    const [pos, setPos] = useState<{ x: number, y: number } | null>(null)
+
+    useEffect(() => {
+        // Calculate initial position
+        if (position === "center") {
+            setPos({ x: window.innerWidth / 2 - 225, y: window.innerHeight / 2 - 300 })
+        } else if (position === "top-right") {
+            setPos({ x: window.innerWidth - 470, y: 80 })
+        } else {
+            setPos({ x: window.innerWidth - 470, y: window.innerHeight - 620 })
+        }
+    }, [])
+
+    const { handleMouseDown, isDragging } = useDraggable(pos || { x: 0, y: 0 }, (newPos) => {
+        setPos(newPos)
+    })
 
     // Position styling
     const positionStyles = {
@@ -66,20 +83,21 @@ export default function ResultWindow({
             <div
                 style={{
                     position: "fixed",
-                    ...positionStyles[position],
+                    ...(pos ? { left: pos.x, top: pos.y, transform: "none" } : positionStyles[position]),
                     width: "200px",
                     background: "linear-gradient(135deg, rgba(20,20,40,0.95), rgba(40,20,50,0.95))",
                     backdropFilter: "blur(15px)",
                     border: `1px solid ${colors.border}`,
                     borderRadius: "8px",
                     padding: "10px 14px",
-                    cursor: "pointer",
+                    cursor: isDragging ? "grabbing" : "grab",
                     pointerEvents: "auto",
                     zIndex: 10002,
                     boxShadow: `0 4px 20px ${colors.border}`,
                     fontFamily: "'Inter', -apple-system, sans-serif"
                 }}
                 onClick={() => setIsMinimized(false)}
+                onMouseDown={handleMouseDown}
             >
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span style={{ color: "cyan", fontWeight: "600", fontSize: "13px" }}>
@@ -109,7 +127,7 @@ export default function ResultWindow({
         <div
             style={{
                 position: "fixed",
-                ...positionStyles[position],
+                ...(pos ? { left: pos.x, top: pos.y, transform: "none" } : positionStyles[position]),
                 width: "450px",
                 maxHeight: "600px",
                 background: "linear-gradient(135deg, rgba(15,15,35,0.97), rgba(35,15,45,0.97))",
@@ -126,13 +144,15 @@ export default function ResultWindow({
         >
             {/* Header */}
             <div
+                onMouseDown={handleMouseDown}
                 style={{
                     background: `linear-gradient(90deg, ${colors.bg}, rgba(0,0,0,0.2))`,
                     borderBottom: `1px solid ${colors.border}`,
                     padding: "14px 18px",
                     display: "flex",
                     justifyContent: "space-between",
-                    alignItems: "center"
+                    alignItems: "center",
+                    cursor: isDragging ? "grabbing" : "grab"
                 }}
             >
                 <div style={{ color: "cyan", fontWeight: "bold", fontSize: "15px" }}>

@@ -158,6 +158,7 @@ export async function analyzeWithVelox(
         if (!matchingNode) return null
         return {
           ...node,
+          elementId: matchingNode.id, // Normalize to actual node ID
           xpath: matchingNode.xpath,
           text: matchingNode.text
         }
@@ -199,7 +200,7 @@ Simultaneously, identify **Low-Value Content** (ads, noise) to filter it out, bu
 4. **ACCURACY OVER SPEED**: While you must be fast, accuracy is paramount. Do not guess.
 
 ## INPUT FORMAT
-[TAG_NAME:INDEX] <text content>
+TAG_NAME:INDEX <text content>
 
 ## OUTPUT REQUIREMENTS
 Return ONLY valid JSON.
@@ -279,7 +280,7 @@ Return ONLY valid JSON.
 ### 6. Appeal to Authority (Argumentum ad Verecundiam)
 **Principle**: Using an authority as evidence in your argument when the authority is not really an authority on the facts relevant to the argument.
 **Triggers**:
-- **Irrelevant Celebrity**: "Actor X says this diet works."
+- **Irrelevant Celebrity**: "Actor X says that diet works."
 - **Vague Authority**: "Experts say...", "Studies show..." (without citation).
 - **Dogmatism**: "Because the CEO said so."
 
@@ -312,22 +313,22 @@ Return ONLY valid JSON.
 
 ## FINAL EXAM (Examples)
 
-**Input**: "[P:1] The new tax law is a crime against humanity! It will starve our children!"
+**Input**: "P:1 The new tax law is a crime against humanity! It will starve our children!"
 **Analysis**: High Severity Appeal to Emotion (Fear/Outrage). No facts, just hysteria.
 **Output**: Fallacy (appeal-to-emotion, High)
 
-**Input**: "[P:2] 9 out of 10 dentists recommend this toothpaste."
+**Input**: "P:2 9 out of 10 dentists recommend this toothpaste."
 **Analysis**: Potential Appeal to Authority/Bandwagon, but common in ads. If it's an ad, mark Low Value. If it's an article claim, mark Fallacy (Appeal to Authority) if no study cited.
 
-**Input**: "[P:3] If we ban plastic straws, next they'll ban cars, and we'll be living in caves."
+**Input**: "P:3 If we ban plastic straws, next they'll ban cars, and we'll be living in caves."
 **Analysis**: Textbook Slippery Slope.
 **Output**: Fallacy (slippery-slope, High)
 
-**Input**: "[P:4] Click here to subscribe."
+**Input**: "P:4 Click here to subscribe."
 **Analysis**: Navigation/Noise.
 **Output**: LowValue (noise)
 
-**Input**: "[P:5] I think this movie was boring."
+**Input**: "P:5 I think this movie was boring."
 **Analysis**: Opinion. Not a fallacy. Not noise.
 **Output**: Empty (Do not flag)
 

@@ -64,11 +64,19 @@ export function extractPageContent(): PageContent {
         if (!text || text.length < 20) return
         if (el.closest('script, style, noscript')) return
 
+        // Check for visibility
+        const style = window.getComputedStyle(el)
+        if (style.display === 'none' || style.visibility === 'hidden') return
+
         processedElements.add(el)
         const xpath = getXPath(el)
 
+        // Generate clean ID and inject into DOM
+        const id = `${el.tagName}:${index}`
+        el.setAttribute("data-veritas-element-id", id)
+
         nodes.push({
-            id: `[${el.tagName}:${index}]`,
+            id: id,
             tagName: el.tagName,
             index: index,
             text: text.slice(0, 2000),
@@ -84,14 +92,22 @@ export function extractPageContent(): PageContent {
         if (!hasDirectText(el)) return
         if (el.closest('script, style, noscript')) return
 
+        // Check for visibility
+        const style = window.getComputedStyle(el)
+        if (style.display === 'none' || style.visibility === 'hidden') return
+
         const text = el.textContent?.trim()
         if (!text || text.length < 20) return
 
         processedElements.add(el)
         const xpath = getXPath(el)
 
+        // Generate clean ID and inject into DOM
+        const id = `${el.tagName}:${containerIndex}`
+        el.setAttribute("data-veritas-element-id", id)
+
         nodes.push({
-            id: `[${el.tagName}:${containerIndex}]`,
+            id: id,
             tagName: el.tagName,
             index: containerIndex,
             text: text.slice(0, 2000),

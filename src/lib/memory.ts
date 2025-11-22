@@ -159,6 +159,24 @@ export class MemoryManager {
                     })) || []
                 }
             }
+        } else if (source === "read_page") {
+            // Compress page content for context, keep full text in fullContent
+            return {
+                summary: {
+                    url: content.url,
+                    title: content.title,
+                    textPreview: content.text?.substring(0, 200) + "...",
+                    paragraphCount: content.paragraphs?.length || 0
+                }
+            }
+        } else if (source === "get_page_text") {
+            // Compress for context, keep full text in fullContent
+            return {
+                summary: {
+                    textPreview: content.text?.substring(0, 200) + "...",
+                    length: content.text?.length || 0
+                }
+            }
         }
 
         // For other sources, store as-is (should be small already)
