@@ -21,22 +21,24 @@ export const modalStyles = {
         width: '100vw',
         height: '100vh',
         background: 'rgba(0, 0, 0, 0.98)',
-        zIndex: 99999,
+        zIndex: 2147483647, // Max z-index to match card
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backdropFilter: 'blur(4px)'
+        backdropFilter: 'blur(4px)',
+        pointerEvents: 'auto' as const // Enable interaction
     },
     container: {
-        position: 'relative' as const,
-        width: '95vw',
-        height: '95vh',
+        position: 'absolute' as const, // Changed from relative to absolute for dragging
+        width: '90vw', // Slightly smaller
+        height: '90vh',
         border: `3px solid ${neonColors.cyan}`,
-        boxShadow: `0 0 20px ${neonColors.cyan}, inset 0 0 20px rgba(0, 240, 255, 0.1)`,
-        animation: 'neonBreath 3s ease-in-out infinite',
+        boxShadow: `0 0 30px ${neonColors.cyan}, inset 0 0 20px rgba(0, 240, 255, 0.1)`,
+        animation: 'neonBreath 4s ease-in-out infinite', // Slower, smoother animation
         background: neonColors.black,
         fontFamily: '"JetBrains Mono", "Courier New", monospace',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        transition: 'box-shadow 0.5s ease, border-color 0.5s ease' // Smooth transitions
     },
     header: {
         position: 'absolute' as const,
@@ -82,91 +84,147 @@ export const modalStyles = {
 }
 
 export const controlStyles = {
-    button: {
+    // Top Left: Filters
+    filterContainer: {
+        position: 'absolute' as const,
+        top: '80px',
+        left: '30px',
+        display: 'flex',
+        flexDirection: 'column' as const,
+        gap: '15px',
+        zIndex: 20
+    },
+    filterButton: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        background: 'rgba(0, 0, 0, 0.6)',
+        border: `1px solid ${neonColors.cyan}`,
+        padding: '8px 12px',
+        borderRadius: '2px',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease',
+        minWidth: '140px',
+        boxShadow: `0 0 5px rgba(0, 240, 255, 0.1)`
+    },
+    filterButtonActive: {
+        background: 'rgba(0, 240, 255, 0.15)',
+        boxShadow: `0 0 15px ${neonColors.cyan}, inset 0 0 10px rgba(0, 240, 255, 0.1)`,
+        borderColor: neonColors.cyan
+    },
+    filterDot: {
+        width: '12px',
+        height: '12px',
+        borderRadius: '2px', // Square dots for brutalism
+        boxShadow: '0 0 5px currentColor'
+    },
+    filterText: {
+        fontFamily: '"JetBrains Mono", monospace',
+        fontSize: '12px',
+        fontWeight: 'bold',
+        letterSpacing: '1px',
+        color: neonColors.cyan
+    },
+
+    // Top Center: Search
+    searchContainer: {
+        position: 'absolute' as const,
+        top: '80px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        display: 'flex',
+        alignItems: 'center',
+        background: 'rgba(0, 0, 0, 0.8)',
+        border: `1px solid ${neonColors.cyan}`,
+        borderRadius: '2px',
+        padding: '5px',
+        gap: '10px',
+        zIndex: 20,
+        boxShadow: `0 0 15px rgba(0, 240, 255, 0.15)`
+    },
+    searchBar: {
+        background: 'transparent',
+        border: 'none',
+        color: neonColors.cyan,
+        padding: '8px 12px',
+        fontSize: '14px',
+        fontFamily: '"JetBrains Mono", monospace',
+        width: '250px',
+        outline: 'none',
+        letterSpacing: '1px'
+    },
+    searchNav: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '5px',
+        paddingRight: '5px',
+        borderLeft: `1px solid rgba(0, 240, 255, 0.3)`,
+        paddingLeft: '10px'
+    },
+    matchCount: {
+        color: neonColors.gray,
+        fontSize: '12px',
+        fontFamily: '"JetBrains Mono", monospace',
+        marginRight: '10px',
+        minWidth: '40px',
+        textAlign: 'center' as const
+    },
+    navButton: {
         background: 'rgba(0, 240, 255, 0.1)',
         border: `1px solid ${neonColors.cyan}`,
         color: neonColors.cyan,
-        padding: '8px 16px',
-        fontSize: '12px',
-        fontFamily: 'inherit',
-        fontWeight: 'bold',
-        textTransform: 'uppercase' as const,
+        width: '28px',
+        height: '28px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         cursor: 'pointer',
-        transition: 'all 0.2s',
+        fontSize: '14px',
         borderRadius: '2px',
-        letterSpacing: '1px'
+        transition: 'all 0.2s'
     },
-    buttonHover: {
-        background: 'rgba(0, 240, 255, 0.2)',
-        boxShadow: `0 0 10px ${neonColors.cyan}`
+
+    // Bottom Left: Zoom Controls
+    zoomContainer: {
+        position: 'absolute' as const,
+        bottom: '40px',
+        left: '30px',
+        display: 'flex',
+        flexDirection: 'column' as const,
+        gap: '10px',
+        zIndex: 20
     },
-    closeButton: {
-        background: 'transparent',
-        border: `1px solid ${neonColors.red}`,
-        color: neonColors.red,
-        width: '36px',
-        height: '36px',
+    zoomButton: {
+        width: '40px',
+        height: '40px',
+        background: 'rgba(0, 0, 0, 0.8)',
+        border: `1px solid ${neonColors.cyan}`,
+        color: neonColors.cyan,
         fontSize: '20px',
         cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         transition: 'all 0.2s',
-        borderRadius: '2px'
+        borderRadius: '2px',
+        boxShadow: `0 0 10px rgba(0, 240, 255, 0.1)`
     },
-    controlPanel: {
-        position: 'absolute' as const,
-        top: '70px',
-        right: '20px',
-        display: 'flex',
-        flexDirection: 'column' as const,
-        gap: '10px',
-        zIndex: 10
-    },
-    controlButton: {
-        width: '40px',
-        height: '40px',
-        background: 'rgba(0, 0, 0, 0.8)',
-        border: `1px solid ${neonColors.cyan}`,
-        color: neonColors.cyan,
+
+    // Close Button (Top Right)
+    closeButton: {
+        background: 'transparent',
+        border: `1px solid ${neonColors.red}`,
+        color: neonColors.red,
+        width: '36px',
+        height: '36px',
         fontSize: '18px',
         cursor: 'pointer',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         transition: 'all 0.2s',
-        borderRadius: '2px'
-    },
-    legend: {
-        position: 'absolute' as const,
-        bottom: '20px',
-        left: '20px',
-        background: 'rgba(0, 0, 0, 0.9)',
-        border: `1px solid ${neonColors.cyan}`,
-        padding: '15px',
         borderRadius: '2px',
-        zIndex: 10
-    },
-    legendTitle: {
-        fontSize: '10px',
-        color: neonColors.cyan,
-        textTransform: 'uppercase' as const,
-        letterSpacing: '1px',
-        marginBottom: '8px',
-        fontWeight: 'bold'
-    },
-    legendItem: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        marginBottom: '6px',
-        fontSize: '11px'
-    },
-    legendDot: {
-        width: '12px',
-        height: '12px',
-        borderRadius: '50%',
-        border: '1px solid rgba(255, 255, 255, 0.3)'
+        boxShadow: `0 0 5px rgba(239, 68, 68, 0.2)`
     }
 }
 
@@ -174,13 +232,52 @@ export const controlStyles = {
 
 export const animationKeyframes = `
 @keyframes neonBreath {
-    0%, 100% {
-        box-shadow: 0 0 20px #00F0FF, inset 0 0 20px rgba(0, 240, 255, 0.1);
-        border-color: #00F0FF;
+    0% {
+        box-shadow: 
+            0 0 10px rgba(0, 240, 255, 0.5),
+            0 0 20px rgba(0, 240, 255, 0.3),
+            inset 0 0 15px rgba(0, 240, 255, 0.2);
+        border-color: rgba(0, 240, 255, 0.8);
+    }
+    25% {
+        box-shadow: 
+            0 0 15px rgba(0, 240, 255, 0.6),
+            0 0 30px rgba(0, 240, 255, 0.4),
+            inset 0 0 20px rgba(0, 240, 255, 0.3);
+        border-color: rgba(0, 240, 255, 1);
     }
     50% {
-        box-shadow: 0 0 40px #00F0FF, 0 0 60px #FFD700, inset 0 0 40px rgba(0, 240, 255, 0.3);
-        border-color: #FFD700;
+        box-shadow: 
+            0 0 20px rgba(255, 215, 0, 0.5),
+            0 0 40px rgba(255, 215, 0, 0.3),
+            inset 0 0 25px rgba(255, 215, 0, 0.2);
+        border-color: rgba(255, 215, 0, 0.8);
+    }
+    75% {
+        box-shadow: 
+            0 0 15px rgba(0, 240, 255, 0.6),
+            0 0 30px rgba(0, 240, 255, 0.4),
+            inset 0 0 20px rgba(0, 240, 255, 0.3);
+        border-color: rgba(0, 240, 255, 1);
+    }
+    100% {
+        box-shadow: 
+            0 0 10px rgba(0, 240, 255, 0.5),
+            0 0 20px rgba(0, 240, 255, 0.3),
+            inset 0 0 15px rgba(0, 240, 255, 0.2);
+        border-color: rgba(0, 240, 255, 0.8);
+    }
+}
+
+@keyframes gradientBorder {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
     }
 }
 
@@ -190,8 +287,8 @@ export const animationKeyframes = `
         transform: scale(1);
     }
     50% {
-        opacity: 0.5;
-        transform: scale(0.9);
+        opacity: 0.8;
+        transform: scale(0.95);
     }
 }
 

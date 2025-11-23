@@ -5,7 +5,6 @@ import { aggregateCardData, type AggregatedCardData } from "~src/lib/card-data-a
 import { enhancedCardStyles, animationKeyframes } from "~src/styles/holographic-card-styles"
 import GraphView from "./GraphView"
 import CommanderChat from "./CommanderChat"
-import FullscreenGraphModal from "./FullscreenGraphModal"
 import { useDraggable } from "~src/hooks/useDraggable"
 
 interface EnhancedHolographicCardProps {
@@ -19,6 +18,7 @@ interface EnhancedHolographicCardProps {
     onMinimize: () => void
     onPositionChange: (pos: { x: number; y: number }) => void
     onTabChange: (tab: string) => void
+    onOpenGraph: (data: { nodes: any[], edges: any[] }) => void
 }
 
 type TabId = "overview" | "fallacies" | "claims" | "verification" | "graph" | "commander"
@@ -33,14 +33,14 @@ export default function EnhancedHolographicCard({
     onPin,
     onMinimize,
     onPositionChange,
-    onTabChange
+    onTabChange,
+    onOpenGraph
 }: EnhancedHolographicCardProps) {
     const store = useVeritasStore()
     const { currentAnalysis } = store
     const [data, setData] = useState<AggregatedCardData | null>(null)
     const [glitchActive, setGlitchActive] = useState(false)
     const [graphFilters, setGraphFilters] = useState({ claim: true, entity: true, source: true })
-    const [isGraphFullscreen, setIsGraphFullscreen] = useState(false)
     const tabsContainerRef = useRef<HTMLDivElement>(null)
 
     // Draggable hook
@@ -439,7 +439,7 @@ export default function EnhancedHolographicCard({
                             <button
                                 onClick={(e) => {
                                     e.stopPropagation()
-                                    setIsGraphFullscreen(true)
+                                    onOpenGraph({ nodes: data.graphNodes || [], edges: data.graphEdges || [] })
                                 }}
                                 style={{
                                     marginLeft: 'auto',
@@ -565,14 +565,6 @@ export default function EnhancedHolographicCard({
                     {renderTabs()}
                     {renderContent()}
                 </>
-            )}
-
-            {/* Fullscreen 3D Graph Modal */}
-            {isGraphFullscreen && (
-                <FullscreenGraphModal
-                    data={{ nodes: data?.graphNodes || [], edges: data?.graphEdges || [] }}
-                    onClose={() => setIsGraphFullscreen(false)}
-                />
             )}
         </div>
     )

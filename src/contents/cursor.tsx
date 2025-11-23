@@ -16,6 +16,7 @@ import StatusOverlay from "~src/components/StatusOverlay"
 import DeepDiveResults from "~src/components/DeepDiveResults"
 import CommanderPanel from "~src/components/CommanderPanel"
 import ResultWindow from "~src/components/ResultWindow"
+import FullscreenGraphModal from "~src/components/FullscreenGraphModal"
 import { highlightTextOnPage, markFallacyOnPage, annotateTextOnPage } from "~src/lib/dom-interactions"
 import {
     injectGlobalStyles,
@@ -75,6 +76,8 @@ function CursorOverlay() {
         position?: "center" | "top-right" | "bottom-right"
         type?: "info" | "warning" | "success" | "error"
     }>>([])
+
+    const [fullscreenGraphData, setFullscreenGraphData] = useState<{ nodes: any[], edges: any[] } | null>(null)
 
     // Smart Stacking Algorithm
     const calculateSmartPosition = (
@@ -477,6 +480,7 @@ function CursorOverlay() {
                     onMinimize={() => updateCard(card.id, { isMinimized: !card.isMinimized })}
                     onPositionChange={(pos) => updateCard(card.id, { position: pos })}
                     onTabChange={(tab) => updateCard(card.id, { activeTab: tab })}
+                    onOpenGraph={(data) => setFullscreenGraphData(data)}
                 />
             ))}
 
@@ -513,6 +517,14 @@ function CursorOverlay() {
                     onClose={() => setResultWindows(prev => prev.filter(w => w.id !== window.id))}
                 />
             ))}
+
+            {/* Fullscreen Graph Modal (Root Level) */}
+            {fullscreenGraphData && (
+                <FullscreenGraphModal
+                    data={fullscreenGraphData}
+                    onClose={() => setFullscreenGraphData(null)}
+                />
+            )}
         </>
     )
 }
