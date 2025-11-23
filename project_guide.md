@@ -96,12 +96,66 @@ Veritas processes the page in three visible layers:
         *   **Red Strikethrough**: False/Debunked Claim (Contradicted by sources).
         *   **Yellow/Orange**: Disputed or Unverified (Mixed evidence).
 
-### 3. Interacting with Results
-Click on *any* highlighted element to open the **Enhanced Holographic Card**.
-*   **Overview Tab**: See the "Risk Score" (0-100) and a summary.
-*   **Fallacies Tab**: Read detailed explanations of *why* an argument is flawed (e.g., "This is an *Ad Hominem* attack because...").
-*   **Verification Tab**: See the evidence. Veritas lists the sources it found, their credibility, and a confidence score.
-*   **Graph Tab**: A mini-view of the local knowledge graph.
+### 3. The Analysis Pipeline (What You See)
+
+When you click "ANALYZE", the system performs a "Deep Scan" of the page. The result is presented in the **Enhanced Holographic Card**, a draggable, interactive dashboard with **6 Specialized Tabs**:
+
+#### Tab 1: OVERVIEW (The Dashboard)
+*   **Risk Gauge**: A live, animated circular gauge showing the "Misinformation Risk Score" (0-100).
+    *   **Green (<30)**: Safe.
+    *   **Yellow (30-70)**: Caution.
+    *   **Red (>70)**: High Risk.
+*   **Executive Summary**: A concise, AI-generated summary of the page's core arguments and credibility.
+*   **Quick Actions**: One-click buttons to "Ask Commander" or "View Graph".
+*   **Status Badges**: Instant indicators for "FALSE CLAIMS", "FALLACIES DETECTED", or "VERIFIED FACTS".
+
+#### Tab 2: FALLACIES (The Bullshit Detector)
+*   **List View**: Displays every logical fallacy detected by Velox.
+*   **Definitions**: Click "What is this?" to see the academic definition of the fallacy (e.g., *Ad Hominem*, *Strawman*).
+*   **Severity**: Each fallacy is rated (LOW/MEDIUM/HIGH) based on its impact on the argument.
+
+#### Tab 3: CLAIMS (The Fact Matrix)
+*   **Atomic Extraction**: Lists every factual claim isolated by Ratio.
+*   **Importance Bars**: Visual indicator of how central the claim is to the article's thesis.
+*   **Entity Tags**: Shows key people/orgs mentioned in the claim (e.g., "WHO", "Elon Musk").
+*   **"Verify This"**: A manual trigger button to force a Deep Dive on a specific claim.
+
+#### Tab 4: VERIFICATION (The Truth Lens)
+*   **Status Indicators**:
+    *   ✅ **VERIFIED**: Confirmed by reliable sources.
+    *   ❌ **FALSE**: Contradicted by evidence.
+    *   ⚠️ **DISPUTED**: Sources disagree.
+*   **Evidence Chain**: Displays the reasoning behind the verdict.
+*   **Source Citations**: Direct links to the external evidence (gov, edu, org, etc.), color-coded by reliability.
+
+#### Tab 5: GRAPH (The Mini-Map)
+*   **Preview**: A small, interactive 2D force-directed graph of the current analysis.
+*   **Filters**: Toggles to show/hide Claims, Entities, or Sources.
+*   **Fullscreen Trigger**: A button to expand the graph into the immersive "God Mode" view.
+
+#### Tab 6: COMMANDER (The Chat)
+*   **Contextual Chat**: A dedicated chat window pre-loaded with the context of the *specific* card/element you are looking at.
+*   **Suggested Questions**: AI-generated follow-up questions based on the analysis (e.g., *"Who is John Doe?"*, *"Explain the slippery slope fallacy"*).
+
+---
+
+## 🕸️ The Knowledge Graph (Visual Intelligence)
+
+Veritas doesn't just read text; it builds a **Semantic Network**. The **Fullscreen Graph Modal** (`FullscreenGraphModal.tsx`) allows you to explore this network in 3D space.
+
+### Core Mechanics
+*   **Nodes**:
+    *   🟡 **Claims** (Gold): The central assertions.
+    *   🔵 **Entities** (Cyan): People, organizations, places.
+    *   🟢 **Sources** (Green): External URLs and evidence.
+*   **Edges**: The relationships (e.g., "Supports", "Contradicts", "Mentions").
+*   **Physics**: Uses a force-directed algorithm (`d3-force`) where related nodes attract and unrelated ones repel.
+
+### Advanced Interactions
+*   **Focus Mode**: Double-click any node to isolate it and its immediate connections, fading out the rest of the graph.
+*   **Smart Search**: Type in the search bar to instantly highlight matching nodes. Use `<` and `>` to cycle through matches.
+*   **Type Filtering**: Toggle visibility of Claims, Entities, or Sources to reduce noise.
+*   **Draggable Canvas**: Pan and zoom to explore massive datasets.
 
 ---
 
