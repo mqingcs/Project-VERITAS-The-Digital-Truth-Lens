@@ -73,7 +73,7 @@ The activation of Veritas is designed to feel like a ritual.
 
 ### 1. Activating the System
 Navigate to any article, news post, or social media feed you wish to analyze.
-*   **Trigger**: Press `Ctrl + Shift + V` (or `Cmd + Shift + V` on Mac).
+*   **Trigger**: Press `Ctrl + Shift + V` (or `Control + Shift + V` on Mac).
 *   **Visual Feedback**: The **Neon Halo**—a breathing Cyan/Gold border—will appear around your screen. This indicates the Agent Swarm is active.
 
 ### 2. The Analysis Pipeline (What You See)
