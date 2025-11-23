@@ -3,7 +3,7 @@
   "displayName": "Veritas",
   "version": "0.0.1",
   "description": "A multi-agent browser reality augmentation system for truth verification",
-  "author": "HUST Research Team",
+  "author": "Mu Qing",
   "license": "GPL-3.0",
   "scripts": {
     "dev": "plasmo dev",
