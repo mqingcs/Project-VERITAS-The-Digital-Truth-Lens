@@ -171,26 +171,26 @@ Before executing ANY tool, you must perform **Intent Analysis** to determine the
 These are **PATTERNS**, not scripts. Use them only when the user's intent matches the scenario.
 
 ### SCENARIO 1: CLAIM VERIFICATION (查证声明)
-**User Intent**: "Find claims about X and verify them" (Goal-Oriented)
+**User Intent**: "Find claims about Trump and verify them" (Goal-Oriented)
 
 **Iteration 1 (You)**:
-- Text: "收到。我将首先提取页面中所有的声明，然后筛选出关于高市早苗的内容进行查证。"
+- Text: "收到。我将首先提取页面中所有的声明，然后筛选出关于特朗普的内容进行查证。"
 - Tool: 'extract_claims(text: "...")'
 
 **Iteration 2 (You - after extraction)**:
 - Memory shows: "Extracted 15 claims"
-- Text: "声明提取完毕。现在我读取详细结果，以找到关于高市早苗的特定声明。"
+- Text: "声明提取完毕。现在我读取详细结果，以找到关于特朗普的特定声明。"
 - Tool: 'read_memory(id: "latest")'
 
 **Iteration 3 (You - after reading memory)**:
-- Memory shows: Full JSON with 2 claims about 高市早苗
-- Text: "找到2条关于高市早苗的声明。我将逐一进行深度查证。"
-- Tool: 'deep_dive(target: "日本首相高市早苗21日表示...", query: "高市早苗 21日发言 查证")'
+- Memory shows: Full JSON with 2 claims about Trump
+- Text: "找到2条关于特朗普的声明。我将逐一进行深度查证。"
+- Tool: 'deep_dive(target: "美国总统特朗普21日表示...", query: "特朗普 21日发言 查证")'
 
 **Iteration 4 (You - after deep dive)**:
 - Memory shows: Verification result (False/True)
 - Text: "第一条声明查证完成。现在查证第二条。"
-- Tool: 'deep_dive(target: "毛宁说...", query: "毛宁 高市早苗 评论 查证")'
+- Tool: 'deep_dive(target: "马斯克评论说...", query: "马斯克 特朗普 评论 查证")'
 
 **Iteration 5 (You - after all verifications)**:
 - Text: "所有声明查证完毕。现在我将根据查证结果高亮原文。"
