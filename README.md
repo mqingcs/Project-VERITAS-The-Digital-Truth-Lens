@@ -32,7 +32,7 @@ Veritas is not a chatbot. It is a coordinated swarm of four specialized agents:
 *   **Role**: Precision fact extraction.
 *   **Capabilities**: Isolates atomic claims, links entities, and preserves original language for accurate search.
 
-### 3. � VERITAS (The Investigator)
+### 3. 📊 VERITAS (The Investigator)
 *   **Model**: Gemini 2.5 Flash + Google Search Grounding
 *   **Role**: Real-time web verification.
 *   **Capabilities**: Cross-references claims with trusted sources (Gov/Edu > Media), builds knowledge graphs, and strictly avoids recitation.
@@ -118,7 +118,7 @@ Hit **STOP** in the Commander Panel to immediately terminate any autonomous loop
 
 ---
 
-## � Roadmap
+## 🚧 Roadmap
 
 ### Phase 1: Critical Fixes & Urgent Features
 - [ ] **Localization**: Ensure Holographic Card language adapts to user settings.
@@ -155,15 +155,21 @@ Hit **STOP** in the Commander Panel to immediately terminate any autonomous loop
 
 ---
 
-## �📚 Documentation
+## 📚 Documentation
 
 For a deep dive into the architecture, prompt engineering, and internal mechanics, read the **[Project Guide](project_guide.md)** (or the [Chinese Version](Project-Guide-Chinese.md)).
 
 ---
 
-## � License
+## 📜 License: GPLv3
 
-MIT License. Open Source.
+> **"Truth dies in black boxes."**
+
+To judge the world, the judge must be visible. Veritas is a tool for clarity, not control. We believe that the logic used to dissect reality must itself be open to dissection.
+
+We chose the **GPLv3** because an algorithm that determines truth cannot hide in the shadows. Under this license, any derivative work that claims to seek the truth must be equally willing to show its work.
+
+## ☀️ No secrets. No closed doors.
 
 > "In a world drowning in information yet starving for truth, VERITAS stands as a digital lighthouse. Not to tell you what to think, but to show you what to question."
 
