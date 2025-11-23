@@ -16,6 +16,8 @@ export class GeminiProvider implements IModelProvider {
     private useSearchGrounding: boolean
     private responseSchema?: any
     private cachedContent?: string // Store cache name if using context caching
+    public lastGroundingMetadata?: any // Expose metadata for retrieval
+
 
     constructor(config: {
         apiKey?: string
@@ -210,6 +212,7 @@ export class GeminiProvider implements IModelProvider {
 
                 // Check for grounding metadata (if search was used)
                 if (candidate.groundingMetadata) {
+                    this.lastGroundingMetadata = candidate.groundingMetadata
                     const metadata = candidate.groundingMetadata
                     console.log("[Gemini Provider] Search queries used:", metadata.webSearchQueries?.length || 0)
                     console.log("[Gemini Provider] Search queries:", metadata.webSearchQueries || [])

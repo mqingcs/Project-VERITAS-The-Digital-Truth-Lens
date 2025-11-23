@@ -15,6 +15,7 @@ import { askCommander } from "~src/agents/commander"
 import { analyzeWithVelox } from "~src/agents/velox"
 import { analyzeWithRatio } from "~src/agents/ratio"
 import { analyzeWithVeritas } from "~src/agents/veritas"
+import { performWebSearch } from "~src/agents/search"
 import type { OutputLanguage } from "~src/lib/language-utils"
 
 interface ToolCall {
@@ -425,6 +426,28 @@ export class AutonomousExecutor {
                     type: "VERITAS_COMPLETE",
                     payload: result
                 })
+                break
+            }
+
+            case "search": {
+                const { query } = args
+
+                const result = await performWebSearch(query, this.state.outputLanguage)
+
+                toolResult = {
+                    status: "success",
+                    content: result,
+                    memoryIndex: result.memoryIndex || `Search: ${query.substring(0, 15)}...`
+                }
+
+                memoryManager.add(
+                    "result",
+                    "search",
+                    result,
+                    result.memoryIndex || `Search: ${query.substring(0, 15)}...`,
+                    { query },
+                    5 // 5 minute TTL
+                )
                 break
             }
 
