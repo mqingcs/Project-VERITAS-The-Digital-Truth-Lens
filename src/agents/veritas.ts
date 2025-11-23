@@ -157,9 +157,20 @@ export async function analyzeWithVeritas(
 
     console.log(`[VERITAS] 🎯 Verification complete - ${fixedVerifications.length} verifications mapped`)
 
+    // Map AI's "type" to our internal "relationship" schema
+    const mappedEdges = (parsed.graph?.edges || []).map((e: any) => ({
+      from: e.from,
+      to: e.to,
+      relationship: e.type || e.label || "related-to", // Map type/label to relationship
+      strength: e.strength || 0.5
+    }))
+
     return {
       verifications: fixedVerifications,
-      graph: parsed.graph || { nodes: [], edges: [] },
+      graph: {
+        nodes: parsed.graph?.nodes || [],
+        edges: mappedEdges
+      },
       hiddenConnections: parsed.hiddenConnections || [],
       memoryIndex: (parsed as any).memoryIndex || `Verified ${fixedVerifications.length} claims`,
       timestamp: Date.now()

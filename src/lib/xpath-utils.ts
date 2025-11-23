@@ -238,3 +238,26 @@ export function findElementByText(text: string, root: Element = document.body): 
 
     return null
 }
+
+/**
+ * Check if two XPaths refer to the same logical element (e.g. parent/child relationship)
+ * Ignores text node suffixes for comparison
+ */
+export function areXpathsRelated(xpath1: string, xpath2: string): boolean {
+    if (!xpath1 || !xpath2) return false
+    if (xpath1 === xpath2) return true
+
+    // Normalize: remove /text()[n] suffix
+    const norm1 = xpath1.replace(/\/text\(\)\[\d+\]$/, "")
+    const norm2 = xpath2.replace(/\/text\(\)\[\d+\]$/, "")
+
+    if (norm1 === norm2) return true
+
+    // Check parent/child relationship
+    // xpath1 is child of xpath2
+    if (norm1.startsWith(norm2 + "/")) return true
+    // xpath2 is child of xpath1
+    if (norm2.startsWith(norm1 + "/")) return true
+
+    return false
+}

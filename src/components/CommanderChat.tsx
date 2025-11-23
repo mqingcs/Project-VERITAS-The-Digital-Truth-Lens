@@ -4,9 +4,10 @@ import type { CommanderResponse } from "~src/types/agents"
 
 interface CommanderChatProps {
   contextText: string
+  suggestedQuestions?: string[]
 }
 
-export default function CommanderChat({ contextText }: CommanderChatProps) {
+export default function CommanderChat({ contextText, suggestedQuestions = [] }: CommanderChatProps) {
   const [input, setInput] = useState("")
   const [messages, setMessages] = useState<{ role: "user" | "agent", text: string }[]>([
     { role: "agent", text: "Commander online. How can I assist with this content?" }
@@ -32,10 +33,10 @@ export default function CommanderChat({ contextText }: CommanderChatProps) {
     }
   }, [])
 
-  const handleSend = () => {
-    if (!input.trim()) return
+  const handleSend = (text: string = input) => {
+    if (!text.trim()) return
 
-    const userText = input
+    const userText = text
     const newMessages = [...messages, { role: "user" as const, text: userText }]
     setMessages(newMessages)
     setInput("")
@@ -114,6 +115,24 @@ export default function CommanderChat({ contextText }: CommanderChatProps) {
             margin-bottom: 4px;
             font-style: italic;
           }
+          .veritas-suggestion-chip {
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            color: #00F0FF;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            margin-right: 4px;
+            margin-bottom: 4px;
+            display: inline-block;
+          }
+          .veritas-suggestion-chip:hover {
+            background: rgba(0, 240, 255, 0.15);
+            border-color: #00F0FF;
+          }
         `}
       </style>
 
@@ -123,6 +142,22 @@ export default function CommanderChat({ contextText }: CommanderChatProps) {
             {msg.text}
           </div>
         ))}
+
+        {/* Suggested Questions (only show if last message was from agent) */}
+        {messages.length > 0 && messages[messages.length - 1].role === 'agent' && suggestedQuestions.length > 0 && (
+          <div style={{ marginTop: "8px", paddingLeft: "4px" }}>
+            {suggestedQuestions.map((q, i) => (
+              <button
+                key={i}
+                className="veritas-suggestion-chip"
+                onClick={() => handleSend(q)}
+              >
+                {q}
+              </button>
+            ))}
+          </div>
+        )}
+
         {isTyping && <div className="veritas-typing">Commander is thinking...</div>}
         <div ref={messagesEndRef} />
       </div>
@@ -136,7 +171,7 @@ export default function CommanderChat({ contextText }: CommanderChatProps) {
           placeholder="Ask Commander..."
           disabled={isTyping}
         />
-        <button className="veritas-send-btn" onClick={handleSend} disabled={isTyping}>SEND</button>
+        <button className="veritas-send-btn" onClick={() => handleSend()} disabled={isTyping}>SEND</button>
       </div>
     </div>
   )
