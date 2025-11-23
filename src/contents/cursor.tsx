@@ -307,14 +307,14 @@ function CursorOverlay() {
                     console.log(`[CURSOR] ✅ Found claim ${claim.id}: "${claim.text?.substring(0, 30)}..."`)
                     console.log(`[CURSOR] 🔍 Searching for spans with: span[data-veritas-claim-id="${claim.id}"]`)
 
-                    // Find ALL spans with this claim ID (there might be multiple if text appears multiple times)
-                    const spans = document.querySelectorAll(`span[data-veritas-claim-id="${claim.id}"]`)
+                    // Find ALL elements with this claim ID (usually spans, but could be block elements if fallback was used)
+                    const spans = document.querySelectorAll(`[data-veritas-claim-id="${claim.id}"]`)
 
                     console.log(`[CURSOR] 📊 Query result: Found ${spans.length} span(s)`)
 
                     if (spans.length === 0) {
                         console.error(`[CURSOR] ❌ NO SPANS FOUND!`)
-                        console.error(`[CURSOR]   - Searched for: span[data-veritas-claim-id="${claim.id}"]`)
+                        console.error(`[CURSOR]   - Searched for: [data-veritas-claim-id="${claim.id}"]`)
                         console.error(`[CURSOR]   - Trying to find any veritas spans...`)
                         const allVeritasSpans = document.querySelectorAll('span[data-veritas-claim-id]')
                         console.error(`[CURSOR]   - Total veritas spans on page: ${allVeritasSpans.length}`)

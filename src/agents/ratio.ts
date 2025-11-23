@@ -109,21 +109,64 @@ export async function analyzeWithRatio(
 
     console.log(`[RATIO] ❌ Extraction complete - ${parsed.claims?.length || 0} claims, ${parsed.entities?.length || 0} entities, ${parsed.data?.length || 0} data points`)
 
-    // Map elementIds back to XPaths (if available)
-    const nodeMap = new Map(content.nodes.map(n => [n.id, n.xpath]))
+    // Helper to find node with robust ID matching (copied from Velox)
+    const findNode = (id: string) => {
+      // Try exact match first
+      let match = content.nodes.find((n) => n.id === id)
+
+      // Try with brackets added (AI might return "P:2" but we have "[P:2]")
+      if (!match && !id.startsWith('[')) {
+        const withBrackets = `[${id}]`
+        match = content.nodes.find((n) => n.id === withBrackets)
+        if (match) {
+          console.log(`[RATIO] 🔧 Matched "${id}" → "${withBrackets}"`)
+        }
+      }
+
+      // Try without brackets (AI might return "[P:2]" but we need "P:2")
+      if (!match && id.startsWith('[')) {
+        const withoutBrackets = id.slice(1, -1)
+        match = content.nodes.find((n) => n.id === withoutBrackets)
+        if (match) {
+          console.log(`[RATIO] 🔧 Matched "${id}" → "${withoutBrackets}"`)
+        }
+      }
+
+      // Try case-insensitive match if failed (e.g. [P:1] vs [p:1])
+      if (!match) {
+        match = content.nodes.find((n) => n.id.toLowerCase() === id.toLowerCase())
+        if (match) {
+          console.log(`[RATIO] 🔧 Matched "${id}" → "${match.id}" (case-insensitive)`)
+        }
+      }
+
+      if (!match) {
+        console.warn(`[RATIO] ⚠️ Could not find node for ID: "${id}"`)
+      }
+
+      return match
+    }
 
     // CRITICAL FIX: Don't filter out claims/data without XPaths
     // XPath is optional - Commander may call extract_claims without DOM context
     // Claims are still valuable for semantic analysis even without DOM manipulation
-    const enrichedClaims = (parsed.claims || []).map(claim => ({
-      ...claim,
-      xpath: nodeMap.get(claim.elementId) || "" // Empty string is OK
-    }))
+    const enrichedClaims = (parsed.claims || []).map(claim => {
+      const node = findNode(claim.elementId)
+      return {
+        ...claim,
+        elementId: node ? node.id : claim.elementId, // Normalize ID if found
+        xpath: node ? node.xpath : "" // Empty string is OK
+      }
+    })
 
-    const enrichedData = (parsed.data || []).map(d => ({
-      ...d,
-      xpath: nodeMap.get(d.elementId) || "" // Empty string is OK
-    }))
+    const enrichedData = (parsed.data || []).map(d => {
+      const node = findNode(d.elementId)
+      return {
+        ...d,
+        elementId: node ? node.id : d.elementId, // Normalize ID if found
+        xpath: node ? node.xpath : "" // Empty string is OK
+      }
+    })
 
     return {
       claims: enrichedClaims,
