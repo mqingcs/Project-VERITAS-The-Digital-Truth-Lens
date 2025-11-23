@@ -1,258 +1,169 @@
-# Project VERITAS
+# Project VERITAS: The Digital Truth Lens
 
-**Nox est norma, Lux per rationem reconstruitur**  
-*"Darkness is the norm, Light is reconstructed through reason"*
+> *Veritas vincit omnia.* (Truth conquers all.)
 
-## Overview
+**Project VERITAS** is a "Digital Brutalist" browser extension designed to restore trust and clarity to the web. It uses a swarm of specialized AI agents to analyze content in real-time, detecting logical fallacies, extracting factual claims, verifying information against the web, and visualizing the hidden structure of knowledge.
 
-Project VERITAS is a quad-agent browser reality augmentation system powered by **Google Gemini AI** that analyzes, verifies, and augments web content in real-time using a cyberpunk-themed, digital brutalism aesthetic.
-
-### The Four Agents
-
-1.  **Velox** (The Sentry) - `gemini-2.5-flash-lite` - Fastest AI for noise filtering
-2.  **Ratio** (The Analyst) - `gemini-2.5-flash` - Balanced AI for fact extraction
-3.  **Veritas** (The Investigator) - `gemini-2.5-pro` - Advanced AI with Google Search
-4.  **Cursor** (The Painter) - DOM manipulation and visual augmentation
-
-### Core Philosophy
-
--   **AI-Powered Analysis**: Real Gemini models, not mock data
--   **Technical Nihilism**: Trust nothing by default
--   **Decoupled Architecture**: Cloud APIs now, local WebGPU later
--   **Non-Destructive**: Surgical DOM modifications, full cleanup
--   **Shadow DOM Isolation**: UI components never interfere with host pages
+![Veritas Banner](https://via.placeholder.com/1200x400/050505/00F0FF?text=PROJECT+VERITAS)
 
 ---
 
-## ✨ Features
+## 🏗️ Philosophy: Digital Brutalism
 
-### Visual Augmentation
-- **Neon Halo**: Breathing cyan/gold border animation during analysis
-- **In-Page Highlighting**:
-  - Low-value content dimmed to 40% opacity
-  - Logical fallacies outlined in red with warning badges
-  - Verified facts highlighted in gold
-  - False claims shown with strikethrough
-- **Holographic Cards**: Hover over any highlighted element for detailed analysis
+Veritas rejects the "clean corporate" aesthetic. It embraces **Digital Brutalism**:
+*   **Raw Data**: Information without sugar-coating.
+*   **High Contrast**: Neon Cyan (#00F0FF) and Gold (#FFD700) against Void Black (#050505).
+*   **Function over Form**: Every pixel serves to reveal truth.
+*   **The Neon Ritual**: Activation triggers a breathing "Neon Halo" and CRT scanlines, signaling the system is alive.
 
-### Interaction
-- **Keyboard Activation**: Press `Ctrl+Shift+V` to trigger analysis
-- **Deep Dive**: Select text and command the system to investigate further
-- **Side Panel**: View full analysis results and knowledge graph
+---
 
-### Architecture
-- **Shadow DOM Isolation**: UI components don't interfere with page functionality
-- **Non-Destructive Modifications**: All changes are reversible
-- **Decoupled API Layer**: Ready for migration from cloud to local WebGPU models
+## 🧠 The Agent Swarm
+
+Veritas is not a chatbot. It is a coordinated swarm of four specialized agents:
+
+### 1. 🛡️ VELOX (The Sentry)
+*   **Model**: Gemini 2.5 Flash-Lite
+*   **Role**: High-speed noise filtering and fallacy detection.
+*   **Capabilities**: Identifies *Ad Hominem*, *Strawman*, *Gaslighting*, and emotional manipulation.
+
+### 2. ⚖️ RATIO (The Analyst)
+*   **Model**: Gemini 2.5 Flash
+*   **Role**: Precision fact extraction.
+*   **Capabilities**: Isolates atomic claims, links entities, and preserves original language for accurate search.
+
+### 3. � VERITAS (The Investigator)
+*   **Model**: Gemini 2.5 Flash + Google Search Grounding
+*   **Role**: Real-time web verification.
+*   **Capabilities**: Cross-references claims with trusted sources (Gov/Edu > Media), builds knowledge graphs, and strictly avoids recitation.
+
+### 4. 💬 COMMANDER (The Orchestrator)
+*   **Model**: Gemini 2.5 Flash
+*   **Role**: The central hub and user interface.
+*   **Capabilities**: Executes complex autonomous research chains ("Find X, Verify Y, Report Z"), manages the DOM, and adapts to user intent.
+
+---
+
+## ✨ Key Features
+
+### 👁️ The Truth Scan (`Ctrl + Shift + V`)
+Instantly analyzes the current page.
+*   **Blue Outlines**: Logical fallacies.
+*   **Cyan Underlines**: Factual claims.
+*   **Color-Coded Verification**:
+    *   ✅ **Green**: Verified Fact.
+    *   ❌ **Red**: Debunked/False.
+    *   ⚠️ **Yellow**: Disputed.
+
+### ⚛️ Enhanced Holographic Card
+Hover over any highlight to open a draggable, 6-tab dashboard:
+*   **Risk Gauge**: Real-time misinformation score (0-100).
+*   **Fallacies**: Detailed breakdown of logical errors.
+*   **Verification**: Evidence chains and source links.
+*   **Commander Chat**: Context-aware Q&A about the specific element.
+
+### 🕸️ 3D Knowledge Graph ("God Mode")
+Visualize the hidden connections between claims, entities, and sources in a fully interactive, force-directed 3D space.
+*   **Focus Mode**: Isolate specific nodes.
+*   **Smart Search**: Instantly find entities in the web.
+*   **Physics Engine**: Nodes attract/repel based on semantic relationship.
 
 ---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-
--   Node.js 18+
--   Chrome/Edge browser
--   **Gemini API key** (free tier available at [Google AI Studio](https://aistudio.google.com/apikey))
+*   **Node.js**: v18+
+*   **pnpm**: Recommended.
+*   **Google Gemini API Key**: Required.
 
 ### Installation
 
-1.  **Clone and Install**
-
-```bash
-cd veritas
-npm install
-```
-
-2.  **Build the Extension**
-
-```bash
-npm run build
-# Production build in build/chrome-mv3-prod
-```
-
-3.  **Load in Chrome**
-
-    -   Open `chrome://extensions/`
-    -   Enable "Developer mode"
-    -   Click "Load unpacked"
-    -   Select `build/chrome-mv3-prod`
-
-4.  **Configure Gemini API**
-
-    -   Get your free API key from [Google AI Studio](https://aistudio.google.com/apikey)
-    -   Click the Veritas extension icon
-    -   Go to Settings tab
-    -   Paste your API key and click "Save"
-    -   Test the connections
-
----
-
-## 📖 Usage
-
-### Basic Workflow
-
-1.  **Navigate to any web page** (e.g. news article, blog post)
-
-2.  **Activate VERITAS** by pressing:
-    ```
-    Ctrl + Shift + V
+1.  **Clone & Install**:
+    ```bash
+    git clone https://github.com/your-repo/project-veritas.git
+    cd project-veritas
+    pnpm install
     ```
 
-3.  **Watch the ritual unfold:**
-    -   Neon halo appears around viewport
-    -   Velox scans for noise and fallacies
-    -   Ratio extracts facts
-    -   Veritas verifies claims
-    -   Cursor paints the results
+2.  **Configure Environment**:
+    Create a `.env` file:
+    ```env
+    PLASMO_PUBLIC_GEMINI_API_KEY=your_api_key_here
+    ```
 
-4.  **Interact with results:**
-    -   Hover over highlighted elements for details
-    -   Click the extension icon to open the side panel
-    -   Select text and issue deep dive commands
+3.  **Run Development Server**:
+    ```bash
+    pnpm dev
+    ```
 
----
-
-## 🛠️ Development
-
-### Directory Structure
-
-```
-veritas/
-├── src/
-│   ├── agents/          # AI agent implementations
-│   │   ├── velox.ts     # Sentry (fallacy detection)
-│   │   ├── ratio.ts     # Analyst (fact extraction)
-│   │   └── veritas.ts   # Investigator (verification)
-│   ├── api/             # API abstraction layer
-│   ├── background/      # Service worker
-│   ├── components/      # React UI components
-│   │   ├── NeonHalo.tsx
-│   │   └── HolographicCard.tsx
-│   ├── contents/        # Content scripts
-│   │   └── cursor.tsx   # Main content script (Agent IV)
-│   ├── lib/             # Utilities
-│   │   ├── dom-painter.ts
-│   │   ├── xpath-utils.ts
-│   │   └── messaging.ts
-│   ├── sidepanel/       # Side panel UI
-│   ├── store/           # Zustand state management
-│   ├── styles/          # CSS
-│   └── types/           # TypeScript definitions
-```
-
-### Commands
-
-```bash
-# Development mode (hot reload)
-npm run dev
-
-# Production build
-npm run build
-
-# Package extension (.zip)
-npm run package
-```
-
-```
+4.  **Load in Chrome**:
+    *   Go to `chrome://extensions` -> Enable "Developer Mode".
+    *   Click "Load Unpacked" -> Select `build/chrome-mv3-dev`.
 
 ---
 
-## 🎨 Design Philosophy
+## ⚡ Advanced Usage
 
-### Digital Brutalism
-- **Sharp corners**, not rounded
-- **High contrast** - black backgrounds, neon accents
-- **JetBrains Mono** typography
-- **Glitch animations** for state transitions
+### Autonomous Research Chains
+Give Commander complex, multi-step instructions via `Ctrl + Shift + C`:
+> *"Find all claims about 'nuclear energy' on this page, verify them against official IAEA reports, and summarize the misconceptions."*
 
-### Color Palette
-- **Cyan**: `#00F0FF` - Primary accent, represents "scanning"
-- **Gold**: `#FFD700` - Secondary accent, represents "truth"
-- **Red**: `#FF4444` - Fallacies and false claims
-- **Black**: `#0a0a0a` - Background
+### Agent Retasking
+Correct the swarm if it makes a mistake:
+> *"You missed the claim in the second paragraph. Look again."* -> Commander will re-plan and re-execute.
 
-### Interaction Metaphor
-Activation is a **ritual**, not just a button click. The Neon Halo represents the system "taking over" your viewport to reveal hidden truth.
+### The "Kill Switch"
+Hit **STOP** in the Commander Panel to immediately terminate any autonomous loop.
 
 ---
 
-## 🔬 Technical Details
+## � Roadmap
 
-### How Cursor Paints the DOM
+### Phase 1: Critical Fixes & Urgent Features
+- [ ] **Localization**: Ensure Holographic Card language adapts to user settings.
+- [ ] **Bug Fix**: Fix `Confidence: NaN%` display when mixing fallacies and verifications.
+- [ ] **Highlighting**: Achieve 100% success rate for DOM annotation.
+- [ ] **UX**: Fix progress bar stuck at 0 during tasks.
+- [ ] **Error Handling**: Add specific prompts for duplicate search errors.
 
-1. **XPath Generation**: Each element gets a unique XPath identifier
-2. **CSS Class Injection**: Non-destructive styling via class additions
-3. **Shadow DOM Badges**: Warning icons injected in isolated shadow roots
-4. **Event Preservation**: Original event listeners remain intact
-5. **Cleanup**: All modifications can be reversed with `cleanupPage()`
+### Phase 2: Architecture & Unification
+- [ ] **Unified Commander**: Merge the Holographic Card's chat with the Global Commander for a single context window.
+- [ ] **Extension API**: Implement APIs to allow more autonomous agent operations.
+- [ ] **Model Upgrade**: Migrate to **Gemini 3.0 Flash** immediately upon release.
 
-### State Management
+### Phase 3: UI/UX Overhaul
+- [ ] **Visual Polish**: Implement "Marquee" scrolling effects and refined Sidebar design.
+- [ ] **Design Consistency**: Unify all popups, modals, and dialogs to strictly follow the "Digital Brutalism" and Holographic UI language.
+- [ ] **Layout**: Move the "Fullscreen" button in the Graph Card to the right for better ergonomics.
 
-Zustand store manages three data layers:
-```typescript
-interface VeritasAnalysis {
-  velox: RawAnalysisMap    // Layer 1: Noise & Fallacies
-  ratio: FactJSON          // Layer 2: Facts & Claims
-  veritas: VerifiedGraphData // Layer 3: Verifications
-}
-```
+### Phase 4: Performance & Economy
+- [ ] **Latency**: Drastically reduce search and analysis time.
+- [ ] **Billing System**: Real-time cost calculation based on Gemini API pricing.
+- [ ] **Budget Mode**: A "Low Power" setting (skips complex "Thinking" loops, uses cheaper models).
 
-Each agent's completion triggers painting of its corresponding layer.
+### Phase 5: The Core Brain (GraphRAG)
+*Moving beyond Vector Similarity to true Graph-based Retrieval Augmented Generation.*
 
-### Message Flow
-
-```
-Content Script (Cursor)
-    ↓ [ANALYZE_PAGE]
-Background Worker
-    ↓ [calls Velox]
-    ← [VELOX_COMPLETE]
-Content Script paints Layer 1
-    ↓ [calls Ratio]
-    ← [RATIO_COMPLETE]
-Content Script stores data
-    ↓ [calls Veritas]
-    ← [VERITAS_COMPLETE]
-Content Script paints Layer 2
-```
+- [ ] **Integration**: Embed logical fallacies and verification results directly into the Knowledge Graph.
+- [ ] **Deep Dive**: "Deep Dive" actions should dynamically spawn new nodes in the graph.
+- [ ] **Graph Querying**: Allow users to chat *with* the graph (e.g., "Find connections between Entity A and Event B").
+- [ ] **The Vision**:
+    *   *Traditional RAG*: Tells you "What the article says."
+    *   *GraphRAG*: Tells you "Why it matters" by traversing hidden links (e.g., linking a stock drop to a supplier fire 3 months ago).
+    *   *Philosophy*: "Only by seeing the connections can we escape the darkness of a single perspective."
 
 ---
 
-## 🚧 Roadmap
+## �📚 Documentation
 
-### Phase 1 (Current) - Foundation ✅
-- [x] Extension architecture
-- [x] All four agents (placeholder)
-- [x] DOM manipulation engine
-- [x] Visual components
-
-### Phase 2 - Cloud Integration
-- [ ] OpenAI/Anthropic/Gemini providers
-- [ ] Tavily/Serper search integration
-- [ ] Streaming responses
-- [ ] Rate limiting & quota management
-
-### Phase 3 - Advanced Features
-- [ ] Knowledge graph visualization (D3.js)
-- [ ] Historical analysis storage
-- [ ] Custom prompt templates
-- [ ] Per-site configuration
-
-### Phase 4 - Local Models
-- [ ] WebGPU integration
-- [ ] On-device inference with Transformers.js
-- [ ] Privacy-first mode (no external API calls)
+For a deep dive into the architecture, prompt engineering, and internal mechanics, read the **[Project Guide](project_guide.md)** (or the [Chinese Version](Project-Guide-Chinese.md)).
 
 ---
 
-## 📝 License
+## � License
 
-MIT License - Built by HUST Research Team
-
----
-
-## 🙏 Philosophy
+MIT License. Open Source.
 
 > "In a world drowning in information yet starving for truth, VERITAS stands as a digital lighthouse. Not to tell you what to think, but to show you what to question."
 
