@@ -176,6 +176,19 @@ export function injectGlobalStyles(): void {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.7; box-shadow: 0 0 20px currentColor; }
     }
+
+    /* Thinking dots animation */
+    .veritas-thinking-dots:after {
+      content: '.';
+      animation: veritas-dots 1.5s steps(5, end) infinite;
+    }
+
+    @keyframes veritas-dots {
+      0%, 20% { content: '.'; }
+      40% { content: '..'; }
+      60% { content: '...'; }
+      80%, 100% { content: ''; }
+    }
   `
 
     document.head.appendChild(style)

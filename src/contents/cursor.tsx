@@ -33,10 +33,25 @@ import type { Message, VerifiedGraphData } from "~src/types/agents"
 import { logger } from "~src/lib/logger"
 
 // Configure Plasmo for this content script
+// Use dummy match pattern that will never trigger auto-injection
+// Content script is only loaded programmatically via chrome.scripting.executeScript
 export const config: PlasmoCSConfig = {
-    matches: ["<all_urls>"],
+    matches: ["https://veritas-extension-programmatic-only.invalid/*"],
     run_at: "document_end"
 }
+
+declare global {
+    interface Window {
+        __VERITAS_LOADED__?: boolean;
+    }
+}
+
+if (window.__VERITAS_LOADED__) {
+    // Prevent multiple injections
+    throw new Error("Veritas content script already loaded");
+}
+
+window.__VERITAS_LOADED__ = true;
 
 // ============================================================================
 // MAIN CONTENT SCRIPT COMPONENT
@@ -434,13 +449,49 @@ function CursorOverlay() {
                 } catch (error) {
                     console.error("Deep Dive failed:", error)
                 }
-            })
-        ]
+            }),
 
-        // Commander hotkey: Ctrl+Shift+C
-        const handleCommanderHotkey = (e: KeyboardEvent) => {
-            if (e.ctrlKey && e.shiftKey && e.key === "C") {
-                e.preventDefault()
+            // NEW: Trigger Analysis from Background (Shortcut)
+            messageBus.on("TRIGGER_ANALYSIS", () => {
+                const store = useVeritasStore.getState()
+
+                if (store.currentAnalysis?.status === "analyzing") {
+                    logger.warn("Analysis already in progress")
+                    return
+                }
+
+                // Start analysis
+                store.startAnalysis(window.location.href, document.title)
+
+                console.log("[CURSOR] 🔍 About to extract page content...")
+
+                // Extract content in content script context
+                try {
+                    const { extractPageContent } = require("~src/lib/content-extractor")
+
+                    const pageContent = extractPageContent()
+
+                    // Send structured content to background
+                    messageBus.send({
+                        type: "ANALYZE_PAGE",
+                        payload: {
+                            ...pageContent,
+                            outputLanguage: store.ui.outputLanguage || "English"
+                        }
+                    })
+
+                    console.log("[CURSOR] 📨 Content sent to background for analysis")
+                } catch (error) {
+                    console.error("[CURSOR] ❌ Failed to extract content:", error)
+                    logger.error("Content extraction failed", error)
+                    return
+                }
+
+                logger.info("🔍 Veritas analysis initiated")
+            }),
+
+            // NEW: Open Commander from Background (Shortcut)
+            messageBus.on("OPEN_COMMANDER", () => {
                 setCommanderPanel({
                     visible: true,
                     position: {
@@ -449,15 +500,17 @@ function CursorOverlay() {
                     },
                     context: { type: "global" }
                 })
-            }
-        }
+            })
+        ]
 
-        document.addEventListener("keydown", handleCommanderHotkey)
+        // Removed global keydown listener (handled by background script)
+        // const handleCommanderHotkey = (e: KeyboardEvent) => { ... }
+        // document.addEventListener("keydown", handleCommanderHotkey)
 
         // Cleanup on unmount
         return () => {
             unsubscribers.forEach((unsub) => unsub())
-            document.removeEventListener("keydown", handleCommanderHotkey)
+            // document.removeEventListener("keydown", handleCommanderHotkey)
         }
     }, [])
 
@@ -571,53 +624,13 @@ if (document.body) {
 const root = createRoot(shadowRoot)
 root.render(<CursorOverlay />)
 
-// ============================================================================
-// GLOBAL LISTENERS (Outside Shadow DOM)
-// ============================================================================
+    // ============================================================================
+    // GLOBAL LISTENERS (Outside Shadow DOM)
+    // ============================================================================
 
-// Listen for keyboard shortcut to trigger analysis
-document.addEventListener("keydown", (e) => {
-    // Ctrl+Shift+V (V for Veritas)
-    if (e.ctrlKey && e.shiftKey && e.key === "V") {
-        e.preventDefault()
-
-        const store = useVeritasStore.getState()
-
-        if (store.currentAnalysis?.status === "analyzing") {
-            logger.warn("Analysis already in progress")
-            return
-        }
-
-        // Start analysis
-        store.startAnalysis(window.location.href, document.title)
-
-        console.log("[CURSOR] 🔍 About to extract page content...")
-
-        // Extract content in content script context
-        try {
-            const { extractPageContent } = require("~src/lib/content-extractor")
-
-            const pageContent = extractPageContent()
-
-            // Send structured content to background
-            messageBus.send({
-                type: "ANALYZE_PAGE",
-                payload: {
-                    ...pageContent,
-                    outputLanguage: store.ui.outputLanguage || "English"
-                }
-            })
-
-            console.log("[CURSOR] 📨 Content sent to background for analysis")
-        } catch (error) {
-            console.error("[CURSOR] ❌ Failed to extract content:", error)
-            logger.error("Content extraction failed", error)
-            return
-        }
-
-        logger.info("🔍 Veritas analysis initiated")
-    }
-})
+    // Listen for keyboard shortcut to trigger analysis
+    // REMOVED: Handled via TRIGGER_ANALYSIS message from background script
+    // document.addEventListener("keydown", (e) => { ... })
 
     // Export for debugging
     ; (window as any).__VERITAS__ = {

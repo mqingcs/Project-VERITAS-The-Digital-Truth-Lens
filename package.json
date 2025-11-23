@@ -38,9 +38,6 @@
     "typescript": "5.3.3"
   },
   "manifest": {
-    "host_permissions": [
-      "https://*/*"
-    ],
     "permissions": [
       "activeTab",
       "storage",
@@ -50,6 +47,22 @@
     ],
     "side_panel": {
       "default_path": "sidepanel.html"
+    },
+    "commands": {
+      "veritas-analyze": {
+        "suggested_key": {
+          "default": "Alt+Shift+V",
+          "mac": "Alt+Shift+V"
+        },
+        "description": "Analyze current page with Veritas"
+      },
+      "veritas-commander": {
+        "suggested_key": {
+          "default": "Alt+Shift+C",
+          "mac": "Alt+Shift+C"
+        },
+        "description": "Open Veritas Commander"
+      }
     }
   }
 }

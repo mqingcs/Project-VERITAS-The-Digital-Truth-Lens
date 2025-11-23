@@ -549,6 +549,105 @@ chrome.action.onClicked.addListener(async (tab) => {
     await chrome.sidePanel.open({ tabId: tab.id })
 })
 
+// ============================================================================
+// PROGRAMMATIC CONTENT SCRIPT INJECTION
+// ============================================================================
+
+/**
+ * Ensure content script is loaded in the tab
+ * Uses ping mechanism to check if already loaded
+ */
+async function ensureContentScriptLoaded(tabId: number): Promise<void> {
+    try {
+        // Try to ping the content script
+        await chrome.tabs.sendMessage(tabId, { type: "PING" })
+        logger.info(`Content script already loaded in tab ${tabId}`)
+    } catch (error) {
+        // Content script not loaded, inject it
+        logger.info(`Injecting content script into tab ${tabId}`)
+
+        try {
+            // Get content script files from manifest
+            const manifest = chrome.runtime.getManifest()
+            const contentScripts = manifest.content_scripts?.[0]?.js
+
+            if (!contentScripts || contentScripts.length === 0) {
+                throw new Error("No content scripts defined in manifest")
+            }
+
+            await chrome.scripting.executeScript({
+                target: { tabId },
+                files: contentScripts // Use files from manifest (e.g., ["cursor.bc8a6e0e.js"])
+            })
+
+            // Wait a moment for React to mount and connection to establish
+            await new Promise(resolve => setTimeout(resolve, 150))
+
+            logger.info(`Content script injected successfully in tab ${tabId}`)
+        } catch (injectError) {
+            logger.error(`Failed to inject content script in tab ${tabId}`, { error: injectError })
+            throw injectError
+        }
+    }
+}
+
+// ============================================================================
+// KEYBOARD SHORTCUTS
+// ============================================================================
+
+chrome.commands.onCommand.addListener(async (command, tab) => {
+    if (!tab?.id) {
+        logger.warn(`Command ${command} triggered but no tab ID available`)
+        return
+    }
+
+    try {
+        // Ensure content script is loaded
+        await ensureContentScriptLoaded(tab.id)
+
+        // Get the active port for this tab
+        const port = connections.get(tab.id)
+
+        if (command === "veritas-analyze") {
+            logger.info(`Triggering analysis in tab ${tab.id}`)
+
+            if (port) {
+                port.postMessage({
+                    type: "TRIGGER_ANALYSIS",
+                    payload: {}
+                })
+            } else {
+                // Fallback: try direct message
+                await chrome.tabs.sendMessage(tab.id, {
+                    type: "TRIGGER_ANALYSIS",
+                    payload: {}
+                })
+            }
+        } else if (command === "veritas-commander") {
+            logger.info(`Opening Commander in tab ${tab.id}`)
+
+            if (port) {
+                port.postMessage({
+                    type: "OPEN_COMMANDER",
+                    payload: {}
+                })
+            } else {
+                // Fallback: try direct message
+                await chrome.tabs.sendMessage(tab.id, {
+                    type: "OPEN_COMMANDER",
+                    payload: {}
+                })
+            }
+        }
+    } catch (error) {
+        logger.error(`Failed to handle command ${command}`, { error })
+    }
+})
+
+// ============================================================================
+// CONTEXT MENU
+// ============================================================================
+
 // Context Menu Registration
 chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
@@ -561,35 +660,42 @@ chrome.runtime.onInstalled.addListener(() => {
 // Context Menu Click Handler
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === "veritas-deep-dive" && tab?.id) {
-        // Send message to content script to trigger deep dive
-        // Use the existing long-lived connection for reliability
-        const port = connections.get(tab.id)
+        try {
+            // Ensure content script is loaded
+            await ensureContentScriptLoaded(tab.id)
 
-        if (port) {
-            try {
-                port.postMessage({
-                    type: "TRIGGER_DEEP_DIVE",
-                    payload: {
-                        selectionText: info.selectionText
-                    }
-                })
-                logger.info(`Triggered deep dive for tab ${tab.id}`)
-            } catch (error) {
-                logger.error("Failed to send deep dive trigger via port", { error })
+            // Send message to content script to trigger deep dive
+            // Use the existing long-lived connection for reliability
+            const port = connections.get(tab.id)
+
+            if (port) {
+                try {
+                    port.postMessage({
+                        type: "TRIGGER_DEEP_DIVE",
+                        payload: {
+                            selectionText: info.selectionText
+                        }
+                    })
+                    logger.info(`Triggered deep dive for tab ${tab.id}`)
+                } catch (error) {
+                    logger.error("Failed to send deep dive trigger via port", { error })
+                }
+            } else {
+                logger.warn(`No active connection found for tab ${tab.id}, attempting fallback`)
+                // Fallback: Try standard sendMessage (in case port is disconnected but script is alive)
+                try {
+                    await chrome.tabs.sendMessage(tab.id, {
+                        type: "TRIGGER_DEEP_DIVE",
+                        payload: {
+                            selectionText: info.selectionText
+                        }
+                    })
+                } catch (error) {
+                    logger.error("Failed to trigger deep dive (fallback failed)", { error })
+                }
             }
-        } else {
-            logger.warn(`No active connection found for tab ${tab.id}, attempting fallback`)
-            // Fallback: Try standard sendMessage (in case port is disconnected but script is alive)
-            try {
-                await chrome.tabs.sendMessage(tab.id, {
-                    type: "TRIGGER_DEEP_DIVE",
-                    payload: {
-                        selectionText: info.selectionText
-                    }
-                })
-            } catch (error) {
-                logger.error("Failed to trigger deep dive (fallback failed)", { error })
-            }
+        } catch (error) {
+            logger.error("Failed to ensure content script loaded for deep dive", { error })
         }
     }
 })
