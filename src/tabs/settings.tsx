@@ -144,7 +144,7 @@ export default function Settings() {
                     </div>
                     <div className="model-card">
                         <strong>Veritas (Investigator)</strong>
-                        <span className="model-name">gemini-2.5-pro</span>
+                        <span className="model-name">gemini-2.5-flash</span>
                         <p>Advanced reasoning with search grounding</p>
                     </div>
                 </div>
@@ -156,7 +156,7 @@ export default function Settings() {
                     <li>Get your Gemini API key from Google AI Studio (free tier available)</li>
                     <li>Paste the key above and click "Save API Key"</li>
                     <li>Test the connection to verify it works</li>
-                    <li>Browse any webpage and press <kbd>Ctrl+Shift+V</kbd> to activate</li>
+                    <li>Browse any webpage and press <kbd>Alt+V</kbd> to activate</li>
                     <li>Watch the Neon Halo as agents analyze the page</li>
                     <li>Hover over highlighted content to see detailed analysis</li>
                 </ol>

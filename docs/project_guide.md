@@ -73,7 +73,7 @@ The activation of Veritas is designed to feel like a ritual.
 
 ### 1. Activating the System
 Navigate to any article, news post, or social media feed you wish to analyze.
-*   **Trigger**: Press `Alt + Shift + V` (or `option + Shift + V` on Mac).
+*   **Trigger**: Press `Alt + V` (or `option + V` on Mac).
 *   **Visual Feedback**: The **Neon Halo**—a breathing Cyan/Gold border—will appear around your screen. This indicates the Agent Swarm is active.
 
 ### 2. The Analysis Pipeline (What You See)
@@ -211,7 +211,7 @@ This section details power-user features and the "magic" capabilities of the sys
 ### 1. Autonomous Research Chains (The "Agent Loop")
 Commander isn't just a chatbot; it's an agent that can *do* things. You can give it complex instructions that require multiple steps.
 
-*   **Trigger**: `Alt + Shift + C` -> Type command.
+*   **Trigger**: `Alt + C` -> Type command.
 *   **Example Command**: *"Find all claims about 'nuclear energy' on this page, verify them, and then summarize the three biggest misconceptions."*
 *   **What Happens (The Chain)**:
     1.  **Plan**: Commander breaks this down: `Read Page` -> `Extract Claims (Topic: Nuclear)` -> `Verify Claims` -> `Synthesize Report`.
@@ -235,7 +235,7 @@ Veritas excels at bridging language gaps to find the truth.
 ### 3. The "Bullshit Detector" (Visual Fallacy Mapping)
 You can visually assess the credibility of an author without reading a word.
 
-*   **Action**: Run the scan (`Alt+Shift+V`).
+*   **Action**: Run the scan (`Alt+V`).
 *   **Observation**: Open the **Fullscreen Graph** (`Card -> Graph -> Fullscreen`).
 *   **Technique**: Look for **"Fallacy Clusters"**.
     *   If you see a dense web of *Blue* nodes (Fallacies) connecting to a specific *Entity* (e.g., a politician), it visually reveals a targeted smear campaign.
@@ -331,7 +331,7 @@ The agents communicate using strict, typed JSON schemas to ensure reliability.
 ### System Diagram
 ```mermaid
 flowchart TD
-    User[User] -->|Alt+Shift+V| CS[Content Script]
+    User[User] -->|Alt+V| CS[Content Script]
     CS -->|ANALYZE_PAGE| BG[Background Worker]
     
     subgraph "Agent Swarm (Background)"

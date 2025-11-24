@@ -51,15 +51,17 @@
     "commands": {
       "veritas-analyze": {
         "suggested_key": {
-          "default": "Alt+Shift+V",
-          "mac": "Alt+Shift+V"
+          "default": "Alt+V",
+          "mac": "Alt+V",
+          "windows": "Alt+V"
         },
         "description": "Analyze current page with Veritas"
       },
       "veritas-commander": {
         "suggested_key": {
-          "default": "Alt+Shift+C",
-          "mac": "Alt+Shift+C"
+          "default": "Alt+C",
+          "mac": "Alt+C",
+          "windows": "Alt+C"
         },
         "description": "Open Veritas Commander"
       }
