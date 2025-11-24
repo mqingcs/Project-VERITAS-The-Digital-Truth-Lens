@@ -46,7 +46,7 @@ Veritas is not a chatbot. It is a coordinated swarm of four specialized agents:
 
 ## ✨ Key Features
 
-### 👁️ The Truth Scan (`Ctrl + Shift + V`)
+### 👁️ The Truth Scan (`Alt + Shift + V`)
 Instantly analyzes the current page.
 *   **Blue Outlines**: Logical fallacies.
 *   **Cyan Underlines**: Factual claims.
@@ -106,7 +106,7 @@ Visualize the hidden connections between claims, entities, and sources in a full
 ## ⚡ Advanced Usage
 
 ### Autonomous Research Chains
-Give Commander complex, multi-step instructions via `Ctrl + Shift + C`:
+Give Commander complex, multi-step instructions via `Alt + Shift + C`:
 > *"Find all claims about 'nuclear energy' on this page, verify them against official IAEA reports, and summarize the misconceptions."*
 
 ### Agent Retasking
@@ -157,7 +157,7 @@ Hit **STOP** in the Commander Panel to immediately terminate any autonomous loop
 
 ## 📚 Documentation
 
-For a deep dive into the architecture, prompt engineering, and internal mechanics, read the **[Project Guide](project_guide.md)** (or the [Chinese Version](Project-Guide-Chinese.md)).
+For a deep dive into the architecture, prompt engineering, and internal mechanics, read the **[Project Guide](docs/project_guide.md)** (or the [Chinese Version](docs/Project-Guide-Chinese.md)).
 
 ---
 

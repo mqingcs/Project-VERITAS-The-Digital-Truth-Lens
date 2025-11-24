@@ -46,7 +46,7 @@ Veritas 不是聊天机器人。它是一个由四个专业 Agent 组成的协�
 
 ## ✨ 核心特性
 
-### 👁️ 真理扫描 (`Ctrl + Shift + V`)
+### 👁️ 真理扫描 (`Alt + Shift + V`)
 即时分析当前页面。
 *   **蓝色轮廓**: 逻辑谬误。
 *   **青色下划线**: 事实声明。
@@ -106,7 +106,7 @@ Veritas 不是聊天机器人。它是一个由四个专业 Agent 组成的协�
 ## ⚡ 高级用法
 
 ### 自主研究链
-通过 `Ctrl + Shift + C` 给 Commander 下达复杂的多步骤指令：
+通过 `Alt + Shift + C` 给 Commander 下达复杂的多步骤指令：
 > *“找出页面上关于‘核能’的所有声明，根据 IAEA 官方报告进行验证，并总结误解。”*
 
 ### Agent 重任务化 (Retasking)
@@ -157,7 +157,7 @@ Veritas 不是聊天机器人。它是一个由四个专业 Agent 组成的协�
 
 ## 📚 文档
 
-要深入了解架构、Prompt 工程和内部机制，请阅读 **[项目指南](project_guide.md)** (或 [中文版](Project-Guide-Chinese.md))。
+要深入了解架构、Prompt 工程和内部机制，请阅读 **[项目指南](docs/project_guide.md)** (或 [中文版](docs/Project-Guide-Chinese.md))。
 
 ---
 

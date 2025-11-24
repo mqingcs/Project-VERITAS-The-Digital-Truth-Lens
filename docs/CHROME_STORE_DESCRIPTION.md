@@ -40,7 +40,7 @@ Veritas is not a simple chatbot wrapper. It is a coordinated swarm of four auton
     *   ❌ **FALSE (Red)**: Explicitly debunked or contradicted by evidence.
     *   ⚠️ **DISPUTED (Yellow)**: Sources disagree, or context is missing.
 
-#### 4. 💬 COMMANDER (The Orchestrator)
+#### 4. 💬 COMMANDER (The Orchestrator) (`Alt + Shift + C`)
 *   **Role**: Your Personal Intelligence Officer.
 *   **The Problem**: Sometimes you need to go deeper than a passive scan. You have questions.
 *   **The Solution**: Commander is your interface to the swarm. It lives in the side panel and the Holographic Cards. You can give it complex, multi-step missions.
@@ -50,7 +50,7 @@ Veritas is not a simple chatbot wrapper. It is a coordinated swarm of four auton
 
 ### ✨ KEY FEATURES
 
-#### 👁️ The Truth Scan (`Ctrl + Shift + V`)
+#### 👁️ The Truth Scan (`Alt + Shift + V`)
 Press the hotkey, and watch the **Neon Ritual** begin. A breathing cyan and gold halo surrounds your screen. Scanlines flicker. The system comes alive. In seconds, the page is transformed:
 *   **Fallacies are boxed.**
 *   **Facts are underlined.**
