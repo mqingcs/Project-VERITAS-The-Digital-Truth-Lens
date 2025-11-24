@@ -17,7 +17,7 @@ It rejects the "clean corporate" aesthetic in favor of **Digital Brutalism**—r
 
 ## 📚 Documentation
 
-For a deep dive into the architecture, prompt engineering, and internal mechanics, read the **[Project Guide](docs/Project-Guide.md)** (or the [Chinese Version](docs/Project-Guide-Chinese.md)).
+For a deep dive into the architecture, prompt engineering, and internal mechanics, read the **[Project Guide](docs/Project-Guide.md)** (or the [项目指南（中文版）](docs/Project-Guide-Chinese.md)).
 
 ---
 
