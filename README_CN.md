@@ -7,13 +7,19 @@
 
 🇺🇸🇬🇧🇦🇺🇨🇦 For **English** users, please refer to the [README.md](README.md).
 
-![Veritas Banner](https://github.com/mqingcs/Veritas-Autonomous-Multi-Agent-Truth-Engine/blob/Final-version/pics/poster.jpeg)
-
 **Veritas** 不只是个浏览器扩展，它是一套 **认知防御系统**。
 
 这是一个 **自主多智能体真理引擎**，能够实时降低信息熵。它通过协调一组专业 AI 智能体，在网络上施加一层"真理透镜"——揭开论证的隐藏结构，曝光逻辑谬误，用全球事实基准验证信息。
 
 它抛弃了"干净企业风"的审美，转而拥抱 **数字粗野主义 (Digital Brutalism)**——原始数据、高对比度、功能至上。
+
+![Veritas Banner](https://github.com/mqingcs/Veritas-Autonomous-Multi-Agent-Truth-Engine/blob/Final-version/pics/poster.jpeg)
+
+---
+
+## 📚 深度文档
+
+想了解架构细节、提示工程、内部机制？阅读 **[项目指南](docs/project_guide.md)**（或 [中文版](docs/Project-Guide-Chinese.md)）
 
 ---
 
@@ -184,12 +190,6 @@ Veritas 能跨越语言障碍：
     *   **传统 RAG**: 告诉你"文章写了什么"
     *   **GraphRAG**: 告诉你"为什么重要"（如追溯股价暴跌到三个月前的供应商失火）
     *   **哲学**: *只有看到连接，才能逃离单一视角的黑暗*
-
----
-
-## 📚 深度文档
-
-想了解架构细节、提示工程、内部机制？阅读 **[项目指南](docs/project_guide.md)**（或 [中文版](docs/Project-Guide-Chinese.md)）
 
 ---
 

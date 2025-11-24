@@ -5,13 +5,19 @@
 
 🇨🇳🇭🇰🇲🇴🇸🇬 **中文**用户请参阅 [README_CN.md](README_CN.md)。
 
-![Veritas Banner](https://github.com/mqingcs/Veritas-Autonomous-Multi-Agent-Truth-Engine/blob/Final-version/pics/poster.jpeg)
-
 **Veritas** is not just a browser extension; it is a **Cognitive Defense System**.
 
 It is an **Autonomous Multi-Agent Truth Engine** designed to reduce information entropy in real-time. By orchestrating a swarm of specialized AI agents, Veritas overlays a "Truth Lens" on the web, revealing the hidden structure of arguments, exposing logical fallacies, and verifying facts against global ground truths.
 
 It rejects the "clean corporate" aesthetic in favor of **Digital Brutalism**—raw data, high contrast, and function over form.
+
+![Veritas Banner](https://github.com/mqingcs/Veritas-Autonomous-Multi-Agent-Truth-Engine/blob/Final-version/pics/poster.jpeg)
+
+---
+
+## 📚 Documentation
+
+For a deep dive into the architecture, prompt engineering, and internal mechanics, read the **[Project Guide](docs/project_guide.md)** (or the [Chinese Version](docs/Project-Guide-Chinese.md)).
 
 ---
 
@@ -182,12 +188,6 @@ If the autonomous loop runs too long or goes off-track:
     *   *Traditional RAG*: Tells you "What the article says."
     *   *GraphRAG*: Tells you "Why it matters" by traversing hidden links (e.g., linking a stock drop to a supplier fire 3 months ago).
     *   *Philosophy*: "Only by seeing the connections can we escape the darkness of a single perspective."
-
----
-
-## 📚 Documentation
-
-For a deep dive into the architecture, prompt engineering, and internal mechanics, read the **[Project Guide](docs/project_guide.md)** (or the [Chinese Version](docs/Project-Guide-Chinese.md)).
 
 ---
 
