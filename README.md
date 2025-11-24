@@ -42,7 +42,7 @@ Veritas operates as a **Multi-Agent System (MAS)** where four specialized intell
     *   **Cross-Lingual Processing**: Preserves original language semantics (Chinese/English) to ensure accurate downstream verification.
 
 ### 3. 🔍 VERITAS (The Investigator)
-*   **Engine**: Gemini 2.5 Pro + Google Search Grounding
+*   **Engine**: Gemini 2.5 Flash + Google Search Grounding
 *   **Role**: **Autonomous Verification**.
 *   **Tech Stack**: RAG (Retrieval-Augmented Generation), Multi-hop reasoning.
 *   **Capabilities**:

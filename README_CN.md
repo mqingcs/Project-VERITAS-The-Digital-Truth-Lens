@@ -44,7 +44,7 @@ Veritas 采用 **多智能体系统 (MAS)** 架构，四个专业智能体通过
     *   **跨语言保真**: 保留原始语言语义（中英文等），确保验证精度
 
 ### 3. 🔍 VERITAS（调查员）
-*   **引擎**: Gemini 2.5 Pro + Google Search Grounding
+*   **引擎**: Gemini 2.5 Flash + Google Search Grounding
 *   **定位**: **自主事实核查**
 *   **技术栈**: RAG（检索增强生成）+ 多跳推理
 *   **核心能力**:
