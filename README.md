@@ -4,7 +4,7 @@
 
 **Project VERITAS** is a "Digital Brutalist" browser extension designed to restore trust and clarity to the web. It uses a swarm of specialized AI agents to analyze content in real-time, detecting logical fallacies, extracting factual claims, verifying information against the web, and visualizing the hidden structure of knowledge.
 
-![Veritas Banner](https://via.placeholder.com/1200x400/050505/00F0FF?text=PROJECT+VERITAS)
+![Veritas Banner](https://github.com/mqingcs/Project-VERITAS-The-Digital-Truth-Lens/blob/Final-version/pics/poster.jpeg)
 
 ---
 

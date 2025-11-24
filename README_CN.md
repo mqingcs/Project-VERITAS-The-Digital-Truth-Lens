@@ -4,7 +4,7 @@
 
 **Project VERITAS** 是一个“数字粗野主义”风格的浏览器扩展，旨在重建网络的信任与清晰度。它利用一个由专业 AI Agent 组成的蜂群来实时分析内容，检测逻辑谬误，提取事实声明，通过全网验证信息，并可视化知识的隐藏结构。
 
-![Veritas Banner](https://via.placeholder.com/1200x400/050505/00F0FF?text=PROJECT+VERITAS)
+![Veritas Banner](https://github.com/mqingcs/Project-VERITAS-The-Digital-Truth-Lens/blob/Final-version/pics/poster.jpeg)
 
 ---
 
