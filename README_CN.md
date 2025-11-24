@@ -101,8 +101,8 @@ Veritas 不是聊天机器人。它是一个由四个专业 Agent 组成的协�
     *   前往 `chrome://extensions` -> 启用“开发者模式”。
     *   点击“加载已解压的扩展程序” -> 选择 `build/chrome-mv3-prod`。
 
-4.  **部署 Google Gemini API KEY**:
-    *   点击扩展程序图标，在弹出的侧边栏中找到设置⚙️，找到“🔑 GEMINI API KEY”输入框，输入您的 Google Gemini API Key。
+4.  **部署 Google Gemini API key**:
+    *   点击扩展程序图标，在弹出的侧边栏中找到设置⚙️，找到“🔑 GEMINI API KEY”输入框，输入您的 Google Gemini API key。
     *   点击“保存”按钮。
 
 ---
