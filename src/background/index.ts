@@ -11,6 +11,7 @@ import { memoryManager } from "~src/lib/memory"
 import { analyzeWithVeritas } from "~src/agents/veritas"
 import { AutonomousExecutor } from "~src/lib/autonomous-executor"
 import { askCommander } from "~src/agents/commander"
+import cursorScriptUrl from "url:../injected/cursor.tsx"
 
 // Store active connections
 const connections = new Map<number, chrome.runtime.Port>()
@@ -567,17 +568,18 @@ async function ensureContentScriptLoaded(tabId: number): Promise<void> {
         logger.info(`Injecting content script into tab ${tabId}`)
 
         try {
-            // Get content script files from manifest
-            const manifest = chrome.runtime.getManifest()
-            const contentScripts = manifest.content_scripts?.[0]?.js
+            // Plasmo 'url:' import returns a relative path (e.g., "../../cursor.js") or full URL
+            // chrome.scripting.executeScript expects a path relative to the extension root
+            // Since Plasmo flattens entry points to the root, we just need the filename
+            const scriptPath = cursorScriptUrl.split("/").pop()?.split("?")[0]
 
-            if (!contentScripts || contentScripts.length === 0) {
-                throw new Error("No content scripts defined in manifest")
+            if (!scriptPath) {
+                throw new Error("Failed to resolve content script path")
             }
 
             await chrome.scripting.executeScript({
                 target: { tabId },
-                files: contentScripts // Use files from manifest (e.g., ["cursor.bc8a6e0e.js"])
+                files: [scriptPath]
             })
 
             // Wait a moment for React to mount and connection to establish

@@ -6,7 +6,6 @@
  * It receives data from all three agents and paints truth upon the page.
  */
 
-import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useState } from "react"
 import { createRoot } from "react-dom/client"
 
@@ -31,14 +30,6 @@ import { messageBus } from "~src/lib/messaging"
 import { useVeritasStore } from "~src/store"
 import type { Message, VerifiedGraphData } from "~src/types/agents"
 import { logger } from "~src/lib/logger"
-
-// Configure Plasmo for this content script
-// Use dummy match pattern that will never trigger auto-injection
-// Content script is only loaded programmatically via chrome.scripting.executeScript
-export const config: PlasmoCSConfig = {
-    matches: ["https://veritas-extension-programmatic-only.invalid/*"],
-    run_at: "document_end"
-}
 
 declare global {
     interface Window {
