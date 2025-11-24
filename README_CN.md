@@ -19,7 +19,7 @@
 
 ## 📚 深度文档
 
-想了解架构细节、提示工程、内部机制？阅读 **[项目指南](docs/project_guide.md)**（或 [中文版](docs/Project-Guide-Chinese.md)）
+想了解架构细节、提示工程、内部机制？阅读 **[项目指南](docs/Project-Guide.md)**（或 [中文版](docs/Project-Guide-Chinese.md)）
 
 ---
 
