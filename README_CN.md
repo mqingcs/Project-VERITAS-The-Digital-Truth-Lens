@@ -78,7 +78,7 @@ Veritas 不是聊天机器人。它是一个由四个专业 Agent 组成的协�
 
 ### 先决条件
 *   **Node.js**: v18+
-*   **pnpm**: 推荐。
+*   **npm**: 推荐。
 *   **Google Gemini API Key**: 必需。
 
 ### 安装

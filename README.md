@@ -80,7 +80,7 @@ Visualize the hidden connections between claims, entities, and sources in a full
 
 ### Prerequisites
 *   **Node.js**: v18+
-*   **pnpm**: Recommended.
+*   **npm**: Recommended.
 *   **Google Gemini API Key**: Required.
 
 ### Installation
