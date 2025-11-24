@@ -155,7 +155,7 @@ Veritas 不是聊天机器人。它是一个由四个专业 Agent 组成的协�
 
 ## 📚 文档
 
-要深入了解架构、Prompt 工程和内部机制，请阅读 **[项目指南](docs/project_guide.md)** (或 [中文版](docs/Project-Guide-Chinese.md))。
+要深入了解架构、Prompt 工程和内部机制，请阅读 **[项目指南（中文版）](docs/Project-Guide-Chinese.md)** (或 [英文版](docs/project_guide.md))。
 
 ---
 
