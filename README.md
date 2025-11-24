@@ -2,7 +2,7 @@
 
 > *Veritas vincit omnia.* (Truth conquers all.)
 
-For Chinese users, please refer to the [README_CN.md](README_CN.md).
+🇨🇳 For **Chinese** users, please refer to the [README_CN.md](README_CN.md).
 
 **Project VERITAS** is a "Digital Brutalist" browser extension designed to restore trust and clarity to the web. It uses a swarm of specialized AI agents to analyze content in real-time, detecting logical fallacies, extracting factual claims, verifying information against the web, and visualizing the hidden structure of knowledge.
 
