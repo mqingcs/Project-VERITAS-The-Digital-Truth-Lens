@@ -1,4 +1,5 @@
-# Project VERITAS: The Digital Truth Lens
+# Veritas: Autonomous Multi-Agent Truth Engine
+## The Anti-Entropy Cognitive Defense System
 
 **"Nox est norma, Lux per rationem reconstruitur."**
 *(Darkness is the norm, Light is reconstructed through reason.)*
@@ -9,42 +10,78 @@
 
 You are drowning in noise. Every day, you are bombarded with clickbait, logical fallacies, emotional manipulation, and half-truths. Algorithms don't care about what is true; they care about what keeps you clicking. The result? A fragmented reality where facts are optional and outrage is the currency.
 
-**Project VERITAS** is not just a browser extension. It is a **Cognitive Defense System**.
+**Veritas** is not just a browser extension. It is a **Military-Grade Cognitive Defense System**.
 
-It is a "Digital Brutalist" tool designed for one purpose: to restore clarity, trust, and reason to your web browsing experience. It doesn't tell you *what* to think. It shows you *what to question*. By overlaying a "Truth Lens" on top of any website, Veritas reveals the hidden structure of arguments, exposes manipulation, and verifies facts in real-time using a swarm of specialized AI agents.
+It is a "Digital Brutalist" tool designed for one purpose: to **reduce information entropy**. It doesn't tell you *what* to think. It shows you *what to question*. By overlaying a "Truth Lens" on top of any website, Veritas reveals the hidden structure of arguments, exposes manipulation, and verifies facts in real-time using a swarm of specialized AI agents.
 
 ---
 
-### 🧠 MEET THE AGENT SWARM
+### 🧠 MEET THE AUTONOMOUS SWARM
 
-Veritas is not a simple chatbot wrapper. It is a coordinated swarm of four autonomous AI agents, each with a specialized role, working together in milliseconds to analyze what you read.
+Veritas is not a simple chatbot wrapper. It is a coordinated **Multi-Agent System (MAS)**. Four specialized AI agents work in parallel, communicating via a high-speed internal protocol to analyze what you read in milliseconds.
 
 #### 1. 🛡️ VELOX (The Sentry)
+*   **Model**: Gemini 2.5 Flash-Lite (Optimized for Speed)
 *   **Role**: Rapid Defense & Noise Filtering.
 *   **The Problem**: Most content is fluff, ads, or emotional triggers designed to bypass your logic.
-*   **The Solution**: Velox scans the page instantly. It dims low-value content (ads, sidebars) and highlights **Logical Fallacies** in high-contrast blue.
-*   **What It Detects**: *Ad Hominem* attacks, *Strawman* arguments, *Gaslighting*, *Slippery Slopes*, and *Emotional Appeals*. If an article tries to manipulate your feelings instead of presenting facts, Velox will flag it.
+*   **The Solution**: Velox acts as a "World-Class Logic Professor". It scans the page instantly, dimming low-value content (ads, sidebars) and highlighting **Logical Fallacies** in high-contrast blue.
+*   **Capabilities**:
+    *   **Fallacy Detection**: Identifies 12+ types of rhetorical tricks including *Ad Hominem*, *Strawman*, *Gaslighting*, *Slippery Slope*, and *False Dichotomy*.
+    *   **Emotional Severity Matrix**: Grades manipulation attempts from "Low" (Sarcasm) to "High" (Dehumanization/Fear-mongering).
+    *   **Noise Suppression**: Visually fades out ads and boilerplate so you can focus on the signal.
 
 #### 2. ⚖️ RATIO (The Analyst)
-*   **Role**: Precision Fact Extraction.
+*   **Model**: Gemini 2.5 Flash (Optimized for Precision)
+*   **Role**: Entropy Reduction & Fact Extraction.
 *   **The Problem**: Facts are often buried in paragraphs of opinion.
-*   **The Solution**: Ratio acts as a surgical scalpel. It parses the text and extracts atomic **Factual Claims**. It separates "what happened" from "what the author thinks about it."
-*   **The Result**: You see cyan underlines beneath every verifiable statement. No more guessing what is a fact and what is a spin.
+*   **The Solution**: Ratio follows a strict "Extract, Do Not Judge" protocol. It acts as a surgical scalpel, parsing text to isolate atomic **Factual Claims** and **Entities**.
+*   **Capabilities**:
+    *   **Atomic Extraction**: Separates objective claims ("GDP grew by 3%") from subjective spin ("The economy is booming").
+    *   **Multilingual Processing**: Preserves original language (Chinese/English) to ensure accurate cross-border verification.
+    *   **Entity Linking**: Identifies and tags People, Organizations, and Locations for the Knowledge Graph.
 
 #### 3. 🔍 VERITAS (The Investigator)
+*   **Model**: Gemini 2.5 Flash + Google Search Grounding
 *   **Role**: Real-Time Web Verification.
-*   **The Problem**: Checking facts takes time. You have to open new tabs, search Google, read multiple sources, and compare dates.
-*   **The Solution**: Veritas does the heavy lifting for you. While you read, it autonomously cross-references claims against trusted sources (Government databases, Educational institutions, Reputable journalism).
-*   **The Verdict**:
-    *   ✅ **VERIFIED (Green)**: Confirmed by multiple independent sources.
-    *   ❌ **FALSE (Red)**: Explicitly debunked or contradicted by evidence.
-    *   ⚠️ **DISPUTED (Yellow)**: Sources disagree, or context is missing.
+*   **The Problem**: Checking facts takes time. You have to open new tabs, search, and compare sources.
+*   **The Solution**: Veritas is the "Arbiter of Truth". It autonomously performs deep web searches to cross-reference claims against trusted sources (Gov, Edu, Major Media).
+*   **Capabilities**:
+    *   **Anti-Recitation Protocol**: Synthesizes answers instead of copying them, preventing hallucinations.
+    *   **Source Credibility Scoring**: Ranks evidence based on domain authority.
+    *   **The Verdict**:
+        *   ✅ **VERIFIED (Green)**: Confirmed by multiple independent sources.
+        *   ❌ **FALSE (Red)**: Explicitly debunked or contradicted by evidence.
+        *   ⚠️ **DISPUTED (Yellow)**: Sources disagree, or context is missing.
 
-#### 4. 💬 COMMANDER (The Orchestrator) (`Alt + C`)
-*   **Role**: Your Personal Intelligence Officer.
-*   **The Problem**: Sometimes you need to go deeper than a passive scan. You have questions.
-*   **The Solution**: Commander is your interface to the swarm. It lives in the side panel and the Holographic Cards. You can give it complex, multi-step missions.
-*   **Example**: *"Find all claims about nuclear energy on this page, verify them against the latest IAEA reports, and summarize the three biggest misconceptions the author makes."* Commander will plan the steps, deploy the agents, and report back.
+---
+
+### 💬 COMMANDER: THE HIVE MIND (Autonomous Orchestrator)
+
+Commander is not a chatbot. It is a **Cybernetic Orchestrator** that wields the other agents as tools. It operates on a **Reasoning + Acting (ReAct)** loop, allowing it to perform complex, multi-step research missions autonomously.
+
+#### ⌨️ How to Command
+*   **Trigger**: Press `Alt + C` (or `Option + C` on Mac) to open the Command Terminal.
+*   **Context**: Commander automatically ingests the page context. You can refer to "this article", "that claim", or "the second paragraph".
+*   **Natural Language**: No code required. Just tell it what you need (e.g., "Verify the statistics in this section").
+
+#### 🤖 The Cognitive Protocol
+Commander intelligently switches modes based on your intent:
+1.  **Direct Execution Mode**: *"Highlight all mentions of 'Elon Musk' in red."* -> Commander immediately calls DOM tools to paint the page.
+2.  **Analysis Mode**: *"Is this article biased?"* -> Commander reads the text, triggers Velox for fallacy detection, and summarizes the findings.
+3.  **Creative Mode**: *"Rewrite this paragraph to be neutral."* -> Commander uses extracted facts to reconstruct the text without the spin.
+
+#### ⚡ Autonomous Research Chains (The Agent Loop)
+You can give Commander complex instructions that require planning and execution:
+*   **Command**: *"Find all claims about 'nuclear energy' on this page, verify them, and then summarize the three biggest misconceptions."*
+*   **The Chain**:
+    1.  **Plan**: Commander breaks this down: `Read Page` -> `Extract Claims` -> `Verify Claims` -> `Synthesize Report`.
+    2.  **Action**: It deploys Ratio to extract claims and Veritas to verify them in parallel.
+    3.  **Output**: It presents a final report in the chat window, highlighting the misconceptions.
+
+#### 🎮 Agent Retasking & Correction
+Even the Swarm makes mistakes. You can correct them in real-time:
+*   **Command**: *"You missed the claim in the second paragraph. Look again."*
+*   **Mechanism**: Commander receives this as a "System Error", re-plans, and re-executes the extraction with a narrower focus.
 
 ---
 
@@ -52,9 +89,9 @@ Veritas is not a simple chatbot wrapper. It is a coordinated swarm of four auton
 
 #### 👁️ The Truth Scan (`Alt + V`)
 Press the hotkey, and watch the **Neon Ritual** begin. A breathing cyan and gold halo surrounds your screen. Scanlines flicker. The system comes alive. In seconds, the page is transformed:
-*   **Fallacies are boxed.**
-*   **Facts are underlined.**
-*   **Lies are struck through.**
+*   **✅ Fallacies are boxed.**
+*   **✅ Facts are underlined.**
+*   **✅ Lies are struck through.**
 It’s like putting on X-Ray glasses for information.
 
 #### ⚛️ Enhanced Holographic Cards
@@ -72,33 +109,31 @@ Information doesn't exist in a vacuum. It's connected. Click "View Graph" to ent
 *   **Spot Manipulation**: Detect "Fallacy Clusters"—dense networks of logical errors often used in coordinated disinformation campaigns.
 *   **Smart Search**: Type an entity name (e.g., "Elon Musk") and instantly zoom to its node in the galaxy of data.
 
+#### 🔬 "Deep Dive" Selection
+Sometimes the automatic scan misses a subtle detail. You can force the agents to focus.
+*   **Action**: Highlight a specific paragraph -> Right Click -> **"Veritas: Deep Dive"**.
+*   **The Magic**: This triggers a focused, high-intensity analysis. Veritas will perform multiple search queries for *just that paragraph*, cross-referencing dates, names, and figures with much higher scrutiny than the full-page scan.
+
+#### 🌍 Cross-Lingual Forensics
+Read a Chinese news report and verify it against English sources instantly. Veritas bridges the language gap, allowing you to fact-check local narratives against global ground truths.
+
 ---
 
 ### 🎯 WHY YOU NEED VERITAS
 
-#### For the Researcher & Student
-Stop citing bad sources. Use Veritas to instantly vet articles, find primary sources, and ensure your references are solid. The **Knowledge Graph** helps you find connections you might have missed.
-
-#### For the News Junkie
-Break out of the echo chamber. When you read a partisan article, Veritas will highlight where the author is using *Strawman* arguments to misrepresent the other side. It forces you to confront the raw facts, stripped of emotional spin.
-
-#### For the Debater & Critical Thinker
-Sharpen your mind. By seeing logical fallacies highlighted in real-time, you train your brain to spot them even when the extension is off. Veritas is a dojo for your critical thinking skills.
-
-#### For the Financial Analyst
-Cut through the hype. When reading market news or press releases, use Ratio to extract the hard numbers and Veritas to verify them against historical data. Ignore the "To the Moon!" sentiment; focus on the fundamentals.
+*   **For the Researcher**: Stop citing bad sources. Instantly vet articles and find primary sources.
+*   **For the Investor**: Cut through the hype. Extract hard numbers and verify them against historical data.
+*   **For the Debater**: Train your brain to spot logical fallacies in real-time.
+*   **For the Skeptic**: Don't trust. Verify.
 
 ---
 
 ### 🎨 DESIGN PHILOSOPHY: DIGITAL BRUTALISM
 
-We are tired of "friendly," rounded, soft-UI corporate software. Truth isn't soft. It's hard, sharp, and sometimes uncomfortable.
-
-Veritas embraces **Digital Brutalism**:
-*   **High Contrast**: Neon Cyan and Gold against Void Black.
+We reject the "clean corporate" aesthetic. Truth isn't soft. It's hard, sharp, and sometimes uncomfortable.
+*   **High Contrast**: Neon Cyan (#00F0FF) and Gold (#FFD700) against Void Black.
 *   **Monospace Typography**: `JetBrains Mono` for code-like precision.
 *   **Raw Data**: We show you the confidence scores, the source links, and the reasoning. No "Magic Box" AI that hides its work.
-*   **Glitch Aesthetics**: The UI breathes, flickers, and reacts. It feels like a piece of cyberpunk tech from a future where information is a weapon.
 
 ---
 
@@ -106,22 +141,17 @@ Veritas embraces **Digital Brutalism**:
 
 **"Truth dies in black boxes."**
 
-We believe that a tool designed to judge truth must itself be open to judgment.
-*   **Open Source**: Project VERITAS is open source. You can inspect our code, our prompts, and our logic.
+*   **Open Source**: Project VERITAS is open source. Inspect our code, our prompts, and our logic on GitHub.
 *   **No Tracking**: We do not sell your browsing history. The agents only analyze the specific page you trigger them on.
-*   **You Are In Control**: The "Kill Switch" allows you to stop any analysis instantly. You choose when to activate the lens.
+*   **You Are In Control**: The "Kill Switch" allows you to stop any analysis instantly.
 
 ---
 
-### 🚀 JOIN THE RESISTANCE AGAINST NOISE.
+### 🚀 JOIN THE RESISTANCE.
 
 The internet was meant to be a library. It became a battlefield. It's time to take it back.
 
-Install **Project VERITAS** today.
+**Install Veritas: Autonomous AI Agent Swarm today.**
 Stop consuming. Start questioning.
-
-**Veritas vincit omnia.**
-
----
 
 *Note: This extension requires a Google Gemini API Key (Free tier available) to function. This ensures you have direct access to the most powerful AI models without a middleman.*

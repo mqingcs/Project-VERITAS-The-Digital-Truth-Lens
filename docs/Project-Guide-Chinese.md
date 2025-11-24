@@ -1,11 +1,11 @@
-# Project VERITAS：数字真理透镜
+# Veritas: 自主多智能体真理引擎
 > *Veritas vincit omnia.* (真理战胜一切。)
 
 ✨ 本文档由 `Google Gemini 3.0 Pro API` 翻译。
 
-**Project VERITAS** 是一个“数字粗野主义”风格的浏览器扩展，旨在重建网络的信任与清晰度。它利用一个由专业 AI Agent 组成的蜂群来实时分析内容，检测逻辑谬误，提取事实声明，通过全网验证信息，并可视化知识的隐藏结构。
+**Veritas** 是一个自主多智能体真理引擎，旨在实时降低信息熵。通过编排一群专门的 AI 智能体，Veritas 在网络上覆盖了一层"真理透镜"，揭示论点的隐藏结构，曝光逻辑谬误，并通过全球基准事实验证信息。它拒绝"干净的企业化"美学,转而拥抱数字粗野主义 (Digital Brutalism)——原始数据、高对比度，以及功能至上。
 
-本指南是 Project VERITAS 的终极手册，涵盖了从基础安装到高级自主 Agent 编排及深度内部机制的所有内容。
+本指南是 Veritas 的终极手册，涵盖了从基础安装到高级自主 Agent 编排及深度内部机制的所有内容。
 
 ---
 
@@ -42,8 +42,8 @@ Veritas 的激活被设计成一种仪式感。
 ### 快速开始
 1.  **克隆仓库**：
     ```bash
-    git clone https://github.com/mqingcs/Project-VERITAS-The-Digital-Truth-Lens/tree/Final-version
-    cd Project-VERITAS-The-Digital-Truth-Lens
+    git clone https://github.com/mqingcs/Veritas-Autonomous-Multi-Agent-Truth-Engine.git
+    cd Veritas-Autonomous-Multi-Agent-Truth-Engine
     ```
 
 2.  **安装依赖**：

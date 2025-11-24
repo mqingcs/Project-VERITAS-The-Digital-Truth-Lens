@@ -1,9 +1,9 @@
-# Project VERITAS: The Digital Truth Lens
+# Veritas: Autonomous Multi-Agent Truth Engine
 > *Veritas vincit omnia.* (Truth conquers all.)
 
-**Project VERITAS** is a "Digital Brutalist" browser extension designed to restore trust and clarity to the web. It uses a swarm of specialized AI agents to analyze content in real-time, detecting logical fallacies, extracting factual claims, verifying information against the web, and visualizing the hidden structure of knowledge.
+**Veritas** is an Autonomous Multi-Agent Truth Engine designed to reduce information entropy in real-time. By orchestrating a swarm of specialized AI agents, it overlays a "Truth Lens" on the web, revealing the hidden structure of arguments, exposing logical fallacies, and verifying facts against global ground truths. It rejects the "clean corporate" aesthetic in favor of Digital Brutalism—raw data, high contrast, and function over form.
 
-This guide is the definitive manual for Project VERITAS, covering everything from basic installation to advanced autonomous agent orchestration and deep internal mechanics.
+This guide is the definitive manual for Veritas, covering everything from basic installation to advanced autonomous agent orchestration and deep internal mechanics.
 
 ---
 
@@ -40,8 +40,8 @@ The activation of Veritas is designed to feel like a ritual.
 ### Quick Start
 1.  **Clone the Repository**:
     ```bash
-    git clone https://github.com/mqingcs/Project-VERITAS-The-Digital-Truth-Lens/tree/Final-version
-    cd Project-VERITAS-The-Digital-Truth-Lens
+    git clone https://github.com/mqingcs/Veritas-Autonomous-Multi-Agent-Truth-Engine.git
+    cd Veritas-Autonomous-Multi-Agent-Truth-Engine
     ```
 
 2.  **Install Dependencies**:

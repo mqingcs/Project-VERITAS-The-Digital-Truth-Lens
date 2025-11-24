@@ -1,78 +1,100 @@
-# Project VERITAS: The Digital Truth Lens
+# Veritas: Autonomous Multi-Agent Truth Engine
 
-> *Veritas vincit omnia.* (Truth conquers all.)
+> **"Nox est norma, Lux per rationem reconstruitur."**
+> *(Darkness is the norm, Light is reconstructed through reason.)*
 
-🇨🇳 For **Chinese** users, please refer to the [README_CN.md](README_CN.md).
+🇨🇳🇭🇰🇲🇴🇸🇬 **中文**用户请参阅 [README_CN.md](README_CN.md)。
 
-**Project VERITAS** is a "Digital Brutalist" browser extension designed to restore trust and clarity to the web. It uses a swarm of specialized AI agents to analyze content in real-time, detecting logical fallacies, extracting factual claims, verifying information against the web, and visualizing the hidden structure of knowledge.
+![Veritas Banner](https://github.com/mqingcs/Veritas-Autonomous-Multi-Agent-Truth-Engine/blob/Final-version/pics/poster.jpeg)
 
-![Veritas Banner](https://github.com/mqingcs/Project-VERITAS-The-Digital-Truth-Lens/blob/Final-version/pics/poster.jpeg)
+**Veritas** is not just a browser extension; it is a **Cognitive Defense System**.
 
----
+It is an **Autonomous Multi-Agent Truth Engine** designed to reduce information entropy in real-time. By orchestrating a swarm of specialized AI agents, Veritas overlays a "Truth Lens" on the web, revealing the hidden structure of arguments, exposing logical fallacies, and verifying facts against global ground truths.
 
-## 🏗️ Philosophy: Digital Brutalism
-
-Veritas rejects the "clean corporate" aesthetic. It embraces **Digital Brutalism**:
-*   **Raw Data**: Information without sugar-coating.
-*   **High Contrast**: Neon Cyan (#00F0FF) and Gold (#FFD700) against Void Black (#050505).
-*   **Function over Form**: Every pixel serves to reveal truth.
-*   **The Neon Ritual**: Activation triggers a breathing "Neon Halo" and CRT scanlines, signaling the system is alive.
+It rejects the "clean corporate" aesthetic in favor of **Digital Brutalism**—raw data, high contrast, and function over form.
 
 ---
 
-## 🧠 The Agent Swarm
+## 🧠 The Autonomous Agent Swarm
 
-Veritas is not a chatbot. It is a coordinated swarm of four specialized agents:
+Veritas operates as a **Multi-Agent System (MAS)** where four specialized intelligences collaborate via a high-speed internal protocol.
 
 ### 1. 🛡️ VELOX (The Sentry)
-*   **Model**: Gemini 2.5 Flash-Lite
-*   **Role**: High-speed noise filtering and fallacy detection.
-*   **Capabilities**: Identifies *Ad Hominem*, *Strawman*, *Gaslighting*, and emotional manipulation.
+*   **Engine**: Gemini 2.5 Flash-Lite (Optimized for <100ms latency)
+*   **Role**: **Pattern Recognition & Noise Suppression**.
+*   **Tech Stack**: Real-time DOM analysis, heuristic fallacy detection.
+*   **Capabilities**:
+    *   **Fallacy Detection**: Identifies 12+ rhetorical patterns (e.g., *Ad Hominem*, *Strawman*, *False Dichotomy*).
+    *   **Entropy Reduction**: Visually suppresses low-value content (ads, boilerplate) to maximize signal-to-noise ratio.
 
 ### 2. ⚖️ RATIO (The Analyst)
-*   **Model**: Gemini 2.5 Flash
-*   **Role**: Precision fact extraction.
-*   **Capabilities**: Isolates atomic claims, links entities, and preserves original language for accurate search.
+*   **Engine**: Gemini 2.5 Flash
+*   **Role**: **Atomic Fact Extraction**.
+*   **Tech Stack**: NLP-based claim isolation, entity recognition (NER).
+*   **Capabilities**:
+    *   **Signal Extraction**: Parses unstructured text into atomic, testable claims.
+    *   **Cross-Lingual Processing**: Preserves original language semantics (Chinese/English) to ensure accurate downstream verification.
 
-### 3. 📊 VERITAS (The Investigator)
-*   **Model**: Gemini 2.5 Flash + Google Search Grounding
-*   **Role**: Real-time web verification.
-*   **Capabilities**: Cross-references claims with trusted sources (Gov/Edu > Media), builds knowledge graphs, and strictly avoids recitation.
+### 3. 🔍 VERITAS (The Investigator)
+*   **Engine**: Gemini 2.5 Pro + Google Search Grounding
+*   **Role**: **Autonomous Verification**.
+*   **Tech Stack**: RAG (Retrieval-Augmented Generation), Multi-hop reasoning.
+*   **Capabilities**:
+    *   **Anti-Recitation Protocol**: Synthesizes answers to prevent hallucination and copyright infringement.
+    *   **Source Credibility Scoring**: Ranks evidence based on domain authority (Gov > Edu > Media > Blog).
+    *   **Graph Construction**: Builds semantic relationships (Supports/Contradicts) for the Knowledge Graph.
 
-### 4. 💬 COMMANDER (The Orchestrator)
-*   **Model**: Gemini 2.5 Flash
-*   **Role**: The central hub and user interface.
-*   **Capabilities**: Executes complex autonomous research chains ("Find X, Verify Y, Report Z"), manages the DOM, and adapts to user intent.
+### 4. 💬 COMMANDER (The Hive Mind)
+*   **Engine**: Gemini 2.5 Flash
+*   **Role**: **ReAct Orchestrator**.
+*   **Tech Stack**: Autonomous Agent Loop (Reasoning + Acting), DOM Manipulation API.
+*   **Capabilities**:
+    *   **Mission Execution**: Accepts high-level goals (*"Verify all stats in this section"*) and autonomously plans the tool execution chain.
+    *   **Context Awareness**: Maintains a sliding window of conversation and page context.
 
 ---
 
-## ✨ Key Features
+## 🛠️ Core Capabilities & Usage
 
-### 👁️ The Truth Scan (`Alt + V`)
-Instantly analyzes the current page.
-*   **Blue Outlines**: Logical fallacies.
-*   **Cyan Underlines**: Factual claims.
-*   **Color-Coded Verification**:
-    *   ✅ **Green**: Verified Fact.
-    *   ❌ **Red**: Debunked/False.
-    *   ⚠️ **Yellow**: Disputed.
+### 1. The Truth Scan (`Alt + V`)
+**Trigger**: Press `Alt + V` (Mac: `Option + V`) to initiate the **Neon Ritual**.
+*   **Visual Feedback**: A breathing Cyan/Gold halo indicates the swarm is active.
+*   **Result**:
+    *   **Blue Boxes**: Logical Fallacies (Hover to see definition).
+    *   **Cyan Underlines**: Factual Claims.
+    *   **Strikethrough**: Debunked Lies.
 
-### ⚛️ Enhanced Holographic Card
-Hover over any highlight to open a draggable, 6-tab dashboard:
-*   **Risk Gauge**: Real-time misinformation score (0-100).
-*   **Fallacies**: Detailed breakdown of logical errors.
-*   **Verification**: Evidence chains and source links.
-*   **Commander Chat**: Context-aware Q&A about the specific element.
+### 2. Enhanced Holographic Card
+**Trigger**: Hover over any highlighted element.
+A 6-tab floating dashboard provides deep analysis:
+*   **Risk Gauge**: Real-time misinformation probability (0-100).
+*   **Fallacies**: Academic breakdown of rhetorical errors.
+*   **Claims**: List of extracted atomic facts.
+*   **Verification**: Evidence chain with direct source links.
+*   **Graph**: Mini-map of the local knowledge network.
+*   **Commander**: Context-specific chat.
 
-### 🕸️ 3D Knowledge Graph ("God Mode")
-Visualize the hidden connections between claims, entities, and sources in a fully interactive, force-directed 3D space.
-*   **Focus Mode**: Isolate specific nodes.
-*   **Smart Search**: Instantly find entities in the web.
-*   **Physics Engine**: Nodes attract/repel based on semantic relationship.
+### 3. Commander Terminal (`Alt + C`)
+**Trigger**: Press `Alt + C` (Mac: `Option + C`) to open the side panel.
+**Usage**: Talk to the swarm in natural language.
+*   **Direct Execution**: *"Highlight all mentions of 'Elon Musk'."*
+*   **Deep Research**: *"Find all claims about nuclear energy, verify them, and summarize the misconceptions."*
+*   **Correction**: *"You missed the claim in the second paragraph. Look again."*
 
-### 🌐 Multi-Language Support
-*   **Chinese**: Click the extension icon, then click the settings ⚙️ icon in the sidebar, and select Chinese (Simplified).
-*   **English**: Default language, no additional settings required.
+### 4. Deep Dive (Precision Strike)
+**Trigger**: Select text -> Right Click -> **"Veritas: Deep Dive"**.
+**Function**: Forces the swarm to focus all computational power on a specific segment.
+*   **Use Case**: When the full-page scan misses a subtle detail or you need rigorous verification of a single paragraph.
+
+### 5. 3D Knowledge Graph ("God Mode")
+**Trigger**: Click "View Graph" in the Holographic Card.
+**Tech**: `Three.js` + `d3-force` physics engine.
+*   **Visualization**: Renders the semantic network of Claims (Gold), Entities (Cyan), and Sources (Green).
+*   **Interaction**:
+    *   **Drag**: Manipulate the graph structure.
+    *   **Scroll**: Zoom in/out.
+    *   **Click**: Focus on specific nodes and their neighbors.
+*   **Analysis**: Spot "Fallacy Clusters" (dense webs of blue nodes) to identify coordinated disinformation campaigns.
 
 ---
 
@@ -80,19 +102,19 @@ Visualize the hidden connections between claims, entities, and sources in a full
 
 ### Prerequisites
 *   **Node.js**: v18+
-*   **npm**: Recommended.
-*   **Google Gemini API Key**: Required.
+*   **pnpm** (Recommended) or npm.
+*   **Google Gemini API Key**: Required for intelligence.
 
 ### Installation
 
 1.  **Clone & Install**:
     ```bash
-    git clone https://github.com/mqingcs/Project-VERITAS-The-Digital-Truth-Lens/tree/Final-version
-    cd Project-VERITAS-The-Digital-Truth-Lens
+    git clone https://github.com/mqingcs/Veritas-Autonomous-Multi-Agent-Truth-Engine.git
+    cd Veritas-Autonomous-Multi-Agent-Truth-Engine
     npm install
     ```
 
-2.  **Run Development Server**:
+2.  **Build**:
     ```bash
     npm run build
     ```
@@ -101,24 +123,28 @@ Visualize the hidden connections between claims, entities, and sources in a full
     *   Go to `chrome://extensions` -> Enable "Developer Mode".
     *   Click "Load Unpacked" -> Select `build/chrome-mv3-prod`.
 
-4.  **Deploy Google Gemini API key**:
-    *   Click the extension icon, then click the settings ⚙️ icon in the sidebar, and find the "🔑 GEMINI API KEY" input box, input your Google Gemini API key.
-    *   Click "SAVE API KEY" button.
+4.  **Configure**:
+    *   Click the extension icon -> Settings ⚙️.
+    *   Enter your **Gemini API Key**.
 
 ---
 
 ## ⚡ Advanced Usage
 
 ### Autonomous Research Chains
-Give Commander complex, multi-step instructions via `Alt + C`:
-> *"Find all claims about 'nuclear energy' on this page, verify them against official IAEA reports, and summarize the misconceptions."*
+Commander implements a **ReAct Loop**. You can give it open-ended missions:
+> *"Scan this page for contradictions regarding the 2024 budget, cross-reference with the Treasury report, and generate a summary table."*
 
-### Agent Retasking
-Correct the swarm if it makes a mistake:
-> *"You missed the claim in the second paragraph. Look again."* -> Commander will re-plan and re-execute.
+### Cross-Lingual Forensics
+Veritas bridges the language gap.
+> *Scenario: Reading a Chinese news report.*
+> *Command: "Verify these claims using English sources."*
+> *Result: Veritas translates the query, searches English media (BBC/Reuters), and reports back in Chinese with the ground truth.*
 
 ### The "Kill Switch"
-Hit **STOP** in the Commander Panel to immediately terminate any autonomous loop.
+If the autonomous loop runs too long or goes off-track:
+*   **Action**: Click **STOP** in the Commander Panel.
+*   **Effect**: Instantly terminates all agent processes and clears the task queue.
 
 ---
 
