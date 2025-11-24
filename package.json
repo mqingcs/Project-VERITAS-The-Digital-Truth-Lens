@@ -5,6 +5,13 @@
   "description": "A multi-agent browser reality augmentation system for truth verification",
   "author": "Mu Qing",
   "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mqingcs/Veritas-Autonomous-Multi-Agent-Truth-Engine.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
