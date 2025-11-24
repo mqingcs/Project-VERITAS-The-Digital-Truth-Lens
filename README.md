@@ -70,6 +70,10 @@ Visualize the hidden connections between claims, entities, and sources in a full
 *   **Smart Search**: Instantly find entities in the web.
 *   **Physics Engine**: Nodes attract/repel based on semantic relationship.
 
+### 🌐 Multi-Language Support
+*   **Chinese**: Click the extension icon, then click the settings ⚙️ icon in the sidebar, and select Chinese (Simplified).
+*   **English**: Default language, no additional settings required.
+
 ---
 
 ## 🚀 Quick Start
