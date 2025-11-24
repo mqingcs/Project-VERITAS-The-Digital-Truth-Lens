@@ -81,25 +81,19 @@ Visualize the hidden connections between claims, entities, and sources in a full
 
 1.  **Clone & Install**:
     ```bash
-    git clone https://github.com/your-repo/project-veritas.git
-    cd project-veritas
-    pnpm install
+    git clone https://github.com/mqingcs/Project-VERITAS-The-Digital-Truth-Lens/tree/Final-version
+    cd Project-VERITAS-The-Digital-Truth-Lens
+    npm install
     ```
 
-2.  **Configure Environment**:
-    Create a `.env` file:
-    ```env
-    PLASMO_PUBLIC_GEMINI_API_KEY=your_api_key_here
-    ```
-
-3.  **Run Development Server**:
+2.  **Run Development Server**:
     ```bash
-    pnpm dev
+    npm run build
     ```
 
-4.  **Load in Chrome**:
+3.  **Load in Chrome**:
     *   Go to `chrome://extensions` -> Enable "Developer Mode".
-    *   Click "Load Unpacked" -> Select `build/chrome-mv3-dev`.
+    *   Click "Load Unpacked" -> Select `build/chrome-mv3-prod`.
 
 ---
 

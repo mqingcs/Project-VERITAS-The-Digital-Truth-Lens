@@ -40,32 +40,28 @@ Veritas 的激活被设计成一种仪式感。
 ### 快速开始
 1.  **克隆仓库**：
     ```bash
-    git clone https://github.com/your-repo/project-veritas.git
-    cd project-veritas
+    git clone https://github.com/mqingcs/Project-VERITAS-The-Digital-Truth-Lens/tree/Final-version
+    cd Project-VERITAS-The-Digital-Truth-Lens
     ```
 
 2.  **安装依赖**：
     ```bash
-    pnpm install
+    npm install
     ```
 
-3.  **配置环境**：
-    在根目录创建一个 `.env` 文件：
-    ```env
-    PLASMO_PUBLIC_GEMINI_API_KEY=your_api_key_here
-    ```
-
-4.  **运行开发服务器**：
+3.  **运行开发服务器**：
     ```bash
-    pnpm dev
+    npm run build
     ```
-    这将启动 Plasmo 开发服务器，并自动将扩展加载到 Chrome 中（如果已配置），或者生成一个 `build/chrome-mv3-dev` 文件夹以供手动加载。
+    这将启动 Plasmo 开发服务器，并自动将扩展加载到 Chrome 中（如果已配置），或者生成一个 `build/chrome-mv3-prod` 文件夹以供手动加载。
 
-5.  **在 Chrome 中加载**：
+4.  **在 Chrome 中加载**：
     *   前往 `chrome://extensions`。
     *   启用“开发者模式”。
     *   点击“加载已解压的扩展程序”。
-    *   选择 `build/chrome-mv3-dev` 文件夹。
+    *   选择 `build/chrome-mv3-prod` 文件夹。
+
+**恭喜！** 你已经成功安装了 Project VERITAS。
 
 ---
 

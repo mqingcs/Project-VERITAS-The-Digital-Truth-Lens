@@ -40,32 +40,28 @@ The activation of Veritas is designed to feel like a ritual.
 ### Quick Start
 1.  **Clone the Repository**:
     ```bash
-    git clone https://github.com/your-repo/project-veritas.git
-    cd project-veritas
+    git clone https://github.com/mqingcs/Project-VERITAS-The-Digital-Truth-Lens/tree/Final-version
+    cd Project-VERITAS-The-Digital-Truth-Lens
     ```
 
 2.  **Install Dependencies**:
     ```bash
-    pnpm install
+    npm install
     ```
 
-3.  **Configure Environment**:
-    Create a `.env` file in the root directory:
-    ```env
-    PLASMO_PUBLIC_GEMINI_API_KEY=your_api_key_here
-    ```
-
-4.  **Run Development Server**:
+3.  **Run Development Server**:
     ```bash
-    pnpm dev
+    npm run build
     ```
-    This will start the Plasmo development server and load the extension into Chrome automatically (if configured) or generate a `build/chrome-mv3-dev` folder to load manually.
+    This will start the Plasmo development server and load the extension into Chrome automatically (if configured) or generate a `build/chrome-mv3-prod` folder to load manually.
 
-5.  **Load in Chrome**:
+4.  **Load in Chrome**:
     *   Go to `chrome://extensions`.
     *   Enable "Developer Mode".
     *   Click "Load Unpacked".
-    *   Select the `build/chrome-mv3-dev` folder.
+    *   Select the `build/chrome-mv3-prod` folder.
+
+**Congratulations!** You have successfully installed Project VERITAS.
 
 ---
 

@@ -81,25 +81,19 @@ Veritas 不是聊天机器人。它是一个由四个专业 Agent 组成的协�
 
 1.  **克隆 & 安装**:
     ```bash
-    git clone https://github.com/your-repo/project-veritas.git
-    cd project-veritas
-    pnpm install
+    git clone https://github.com/mqingcs/Project-VERITAS-The-Digital-Truth-Lens/tree/Final-version
+    cd Project-VERITAS-The-Digital-Truth-Lens
+    npm install
     ```
 
-2.  **配置环境**:
-    创建一个 `.env` 文件：
-    ```env
-    PLASMO_PUBLIC_GEMINI_API_KEY=your_api_key_here
-    ```
-
-3.  **运行开发服务器**:
+2.  **运行开发服务器**:
     ```bash
-    pnpm dev
+    npm run build
     ```
 
-4.  **在 Chrome 中加载**:
+3.  **在 Chrome 中加载**:
     *   前往 `chrome://extensions` -> 启用“开发者模式”。
-    *   点击“加载已解压的扩展程序” -> 选择 `build/chrome-mv3-dev`。
+    *   点击“加载已解压的扩展程序” -> 选择 `build/chrome-mv3-prod`。
 
 ---
 
