@@ -61,6 +61,10 @@ The activation of Veritas is designed to feel like a ritual.
     *   Click "Load Unpacked".
     *   Select the `build/chrome-mv3-prod` folder.
 
+5.  **Deploy Google Gemini API KEY**:
+    *   Click the extension icon, then click the settings ⚙️ icon in the sidebar, and find the "🔑 GEMINI API KEY" input box, input your Google Gemini API Key.
+    *   Click "SAVE API KEY" button.
+
 **Congratulations!** You have successfully installed Project VERITAS.
 
 ---

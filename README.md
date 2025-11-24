@@ -101,6 +101,10 @@ Visualize the hidden connections between claims, entities, and sources in a full
     *   Go to `chrome://extensions` -> Enable "Developer Mode".
     *   Click "Load Unpacked" -> Select `build/chrome-mv3-prod`.
 
+4.  **Deploy Google Gemini API KEY**:
+    *   Click the extension icon, then click the settings ⚙️ icon in the sidebar, and find the "🔑 GEMINI API KEY" input box, input your Google Gemini API Key.
+    *   Click "SAVE API KEY" button.
+
 ---
 
 ## ⚡ Advanced Usage

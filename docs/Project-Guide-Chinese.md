@@ -63,6 +63,10 @@ Veritas 的激活被设计成一种仪式感。
     *   点击“加载已解压的扩展程序”。
     *   选择 `build/chrome-mv3-prod` 文件夹。
 
+5.  **部署 Google Gemini API KEY**:
+    *   点击扩展程序图标，在弹出的侧边栏中找到设置⚙️，找到“🔑 GEMINI API KEY”输入框，输入您的 Google Gemini API Key。
+    *   点击“保存”按钮。
+
 **恭喜！** 你已经成功安装了 Project VERITAS。
 
 ---
